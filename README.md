@@ -68,3 +68,92 @@ Vectors also use the arr[num] syntax but also has another method.
 ```c++
 std::cout << iVector.at(0) << std::endl; //1!
 ```
+
+### Iterators (Vectors) and Looping
+Vector iterators are a little different so here's an example of a vector and an iterator
+```c++
+std::vector<int> iVector;
+std::vector<int>::iterator it; //::::::::::::::::::::::::::::::::
+```
+
+So to make an iterator for a vector we just add a stupid amount of :
+
+### Looping with iterators
+1. Define iterator
+  * vector<int>::iterator myIt;
+2. Access vector
+  * myIt = vec.begin (same as setting array pointer to the first array value)
+
+Example:
+```c++
+std::vector<int> iVector = { 1,2,3,4,5 };
+std::vector<int>::iterator it;
+
+for (it = iVector.begin(); it != iVector.end(); ++it) {
+	//btw we use ++it instead of it++ to get the value before the loop not after, otherwise we would miss out the last value
+	std::cout << *it << std::endl;
+}
+```
+
+### Stringstream
+no fucking clue.
+
+### Filestream
+*ofstream* => Writes to a file
+*ifstream* => Reads from a file
+
+simple :monkey:
+
+```c++
+std::ofstream output_stream;
+std::ifstream input_stream;
+
+
+input_stream.open("boi.txt");
+output_stream.open("boi.txt");
+
+if(input_stream.open("boi")){
+  //...
+}
+```
+
+the if statement is needed if you don't include the .txt part
+
+### Algorithm
+Really small sections, includes some useful things such as count, sort, and for_each
+
+### Classes
+```c++
+Class Bus{
+private:
+  double price;
+public:
+  void horn();
+}
+```
+
+Class syntax ^. Kind of useful. You can define the function {} stuff as well but it gets messy.
+
+### Function definition
+*Inside a class (as just stated):* double price() { //code }
+
+*Outside a class:* return_type class_name::function_name(params){ //code }
+
+### Code Organisation
+
+* Class declaration (above) in header file .h
+* Class method defintions in a c++ file .cpp
+
+header.h --> Source.cpp <-- code.cpp 
+
+### Header Guards
+just include #pragma once. easiest.
+
+### Objects
+*Definition*: class_name object_name;
+
+*Access**: object_name.function_name(params)
+
+### Arrow Operator
+not sure, will look
+
