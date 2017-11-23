@@ -31,10 +31,10 @@ Arrays in C++ are just a name to the first location in memory (weird but c++ doe
 
 ```c++
 int iArray[] = {1,2,3,4,5} //Creating an int array with 5 values
-int *ptr = iArray; //Creating a pointer to point to the first memory address :upside_down_face:
+int *ptr = iArray; //Creating a pointer to point to the first memory address
 ptr++ //Increment the pointer (duh)
 ```
-To explain the second line we're telling the ptr variable to point the the memory address of iArray (which is why I mentioned this in the previous sentance). From here the ptr variable can be incremented to go through the values
+To explain the second line we're telling the ptr variable to point the the memory address of iArray (which is why I mentioned this in the previous sentance). From here the ptr variable can be incremented to go through the values. (I guess you could use arr[num] but still :upside_down_face:)
 
 Example:
 ```c+++
@@ -44,4 +44,27 @@ std::cout << *ptr << std::endl;
 ptr++;
 std::cout << *ptr << std::endl;
 //etc
+```
+
+You can't resize an array in c++ (dumb asf) so that's where vectors come in.
+
+### Vectors
+Vectors are like a nice, not stupid version of arrays (imo), it's basically the same.
+
+Vectors are part of the STL so we need to import them.
+
+```c++
+#include <vector>
+std::vector<int> iVector = { 1,2,3,4,5 }; //Int vector
+std::cout << iVector[0] << std::endl; //1!
+```
+
+Vectors have some cool things like *size()*, *empty()*, *push_pack()* and ***resizing***.
+
+Vectors also use the arr[num] syntax but also has another method.
+
+*.at()* will do the same thing as iVector[num] but will bound check, to make sure it's actually still inside the vector and hasn't wandered off elsewhere.
+
+```c++
+std::cout << iVector.at(0) << std::endl; //1!
 ```
