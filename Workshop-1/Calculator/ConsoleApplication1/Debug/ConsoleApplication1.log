@@ -1,0 +1,10 @@
+﻿  calcs.cpp
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(28): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(31): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(34): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(69): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(70): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(71): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\documents\github\lincoln-university-object-oriented\workshop-1\consoleapplication1\consoleapplication1\calcs.cpp(79): warning C4715: 'standardDev': not all control paths return a value
+  ConsoleApplication1.vcxproj -> D:\Documents\GitHub\Lincoln-University-Object-Oriented\Workshop-1\ConsoleApplication1\Debug\ConsoleApplication1.exe
+  ConsoleApplication1.vcxproj -> D:\Documents\GitHub\Lincoln-University-Object-Oriented\Workshop-1\ConsoleApplication1\Debug\ConsoleApplication1.pdb (Partial PDB)
