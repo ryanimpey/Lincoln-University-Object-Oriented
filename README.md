@@ -12,6 +12,7 @@ We can assign the memory address just returned above to another variable
 int *y = &x; //This looks a little weird imo
 ```
 So here the variable **y** is being assigned the location of **x**
+
 **y** is a pointer to our **x** integer and is assigned the location of **x**
 
 We can also use this to set values through dereferenced pointers
