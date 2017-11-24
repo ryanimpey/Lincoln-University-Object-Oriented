@@ -1,3 +1,4 @@
 ﻿  Workshop5.cpp
-  Workshop5.vcxproj -> D:\Documents\GitHub\Lincoln-University-Object-Oriented\Workshop-5\Workshop5\Debug\Workshop5.exe
-  Workshop5.vcxproj -> D:\Documents\GitHub\Lincoln-University-Object-Oriented\Workshop-5\Workshop5\Debug\Workshop5.pdb (Partial PDB)
+d:\documents\github\lincoln-university-object-oriented\workshop-5\workshop5\workshop5\workshop5.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
+Workshop5.obj : error LNK2019: unresolved external symbol "public: __thiscall Matrix::~Matrix(void)" (??1Matrix@@QAE@XZ) referenced in function "public: void * __thiscall Matrix::`scalar deleting destructor'(unsigned int)" (??_GMatrix@@QAEPAXI@Z)
+D:\Documents\GitHub\Lincoln-University-Object-Oriented\Workshop-5\Workshop5\Debug\Workshop5.exe : fatal error LNK1120: 1 unresolved externals

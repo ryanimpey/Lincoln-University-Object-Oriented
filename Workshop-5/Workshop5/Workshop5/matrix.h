@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <array>
 
 using namespace std;
 
@@ -9,6 +10,7 @@ public:
 	~Matrix();
 	void fillMatrix(float f);
 	void getMatrix();
+	bool setMatrix(float f, int row, int col);
 private:
-	float matrix[5][5];
+	array<array<float, 3>, 3> myMatrix;
 };

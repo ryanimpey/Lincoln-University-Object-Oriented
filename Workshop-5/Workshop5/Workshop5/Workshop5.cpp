@@ -4,9 +4,11 @@
 #include "stdafx.h"
 #include "Robot.h"
 #include "character.h"
+#include "matrix.h"
 #include <iostream>
 #include <vector>
 #include <string>
+#include <array>
 
 using namespace std;
 int main() {
@@ -63,6 +65,18 @@ int main() {
 
 	//Part Three
 
+
+	Matrix newMatrix;
+
+	newMatrix.getMatrix();
+
+	newMatrix.fillMatrix(1.2);
+
+	newMatrix.setMatrix(1.4, 1,1);
+
+	newMatrix.getMatrix();
+
+	//Bad mem leak here
 
 	return 0;
 }
