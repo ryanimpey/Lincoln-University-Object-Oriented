@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <vector>
 #include <math.h>
+#include <array>
 
 using namespace std;
 
@@ -125,13 +126,35 @@ int main()
 	myMessage.print("hello world");*/
 
 	//Part Three
-	Circle myCircle(3);
+	/*Circle myCircle(3);
 	Square mySquare(5);
 	Triangle myTriangle(3);
 
 	area(myCircle.radius);
 	area(mySquare.side);
-	area(myTriangle.side);
+	area(myTriangle.side);*/
 
+	//Part Four
+	cout << "How many videotapes are there?" << endl;
+	int numVideotapes;
+	cin >> numVideotapes;
+	vector<string> videotapes(numVideotapes);
+	vector<string>::iterator it;
+	cout << "Enter the titles for each videotape." << endl;
+	for (int x = 0; x != videotapes.size(); x++) {
+		cout << x + 1 << ": ";
+		cin >> videotapes.at(x);
+	}
+	cout << "==========" << endl;
+	int temp = 1;
+	for (it = videotapes.begin(); it != videotapes.end(); it++) {
+		cout << temp << ". " << *it << endl;
+		temp++;
+	}
+
+	vector<string> DVD = videotapes;
+	for (it = DVD.begin(); it != DVD.end(); it++) {
+		cout << *it << endl;
+	}
     return 0;
 }
