@@ -2,93 +2,108 @@
 //
 
 #include "stdafx.h"
+#include "message.h"
+#include "shape.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
-void variableType(int a) {
-	cout << "Variable is an int!" << endl;
+/* Part One //Bad Practice */
+//void variableType(int a) {
+//	cout << "Variable is an int!" << endl;
+//}
+//
+//void variableType(double a) {
+//	cout << "Variable is a double!" << endl;
+//}
+//
+//void variableType(string a) {
+//	cout << "Variable is a string!" << endl;
+//}
+//
+//
+//bool howToSortDesc(float i, float j) {
+//	return i > j;
+//}
+//
+//bool howToSortAsc(float i, float j) {
+//	return i < j;
+//}
+//
+//void sortVector(vector<int> x, string str) {
+//	vector<int>::iterator xi;
+//
+//	if (str == "asc") {
+//		sort(x.begin(), x.end(), howToSortAsc);
+//	}
+//	else {
+//		sort(x.begin(), x.end(), howToSortDesc);
+//	}
+//	
+//	for (xi = x.begin(); xi != x.end(); ++xi) {
+//		cout << *xi << " ";
+//	}
+//	cout << endl;
+//}
+//
+//void sortVector(vector<long> x, string str) {
+//	vector<long>::iterator xi;
+//
+//	if (str == "asc") {
+//		sort(x.begin(), x.end(), howToSortAsc);
+//	}
+//	else {
+//		sort(x.begin(), x.end(), howToSortDesc);
+//	}
+//
+//	for (xi = x.begin(); xi != x.end(); ++xi) {
+//		cout << *xi << " ";
+//	}
+//	cout << endl;
+//}
+//
+//void sortVector(vector<double> x, string str) {
+//	vector<double>::iterator xi;
+//
+//	if (str == "asc") {
+//		sort(x.begin(), x.end(), howToSortAsc);
+//	}
+//	else {
+//		sort(x.begin(), x.end(), howToSortDesc);
+//	}
+//
+//	for (xi = x.begin(); xi != x.end(); ++xi) {
+//		cout << *xi << " ";
+//	}
+//	cout << endl;
+//}
+
+void area(float r) {
+	const double pi = 3.1415926535897;
+	float tempR = r * r;
+	cout << "Area of a circle: " << pi * tempR << "." << endl;
+};
+
+void area(int s) {
+	cout << "Area of a square: " << s * s << "." << endl;
 }
 
-void variableType(double a) {
-	cout << "Variable is a double!" << endl;
-}
+void area(double s) {
+	double topf = sqrt(3);
+	double area = (topf / 4) * (s*s);
 
-void variableType(string a) {
-	cout << "Variable is a string!" << endl;
-}
-
-
-bool howToSortDesc(int i, int j) {
-	return i > j;
-}
-
-bool howToSortAsc(int i, int j) {
-	return i < j;
-}
-
-bool howToSortDesc(int i, int j) {
-	return i > j;
-}
-
-bool howToSortAsc(int i, int j) {
-	return i < j;
-}
-
-void sortVector(vector<int> x, string str) {
-	vector<int>::iterator xi;
-
-	if (str == "asc") {
-		sort(x.begin(), x.end(), howToSortAsc);
-	}
-	else {
-		sort(x.begin(), x.end(), howToSortDesc);
-	}
-	
-	for (xi = x.begin(); xi != x.end(); ++xi) {
-		cout << *xi;
-	}
-	cout << endl;
-}
-
-void sortVector(vector<long> x, string str) {
-	vector<long>::iterator xi;
-
-	if (str == "asc") {
-		sort(x.begin(), x.end(), howToSortAsc);
-	}
-	else {
-		sort(x.begin(), x.end(), howToSortDesc);
-	}
-
-	for (xi = x.begin(); xi != x.end(); ++xi) {
-		cout << *xi;
-	}
-	cout << endl;
-}
-
-void sortVector(vector<double> x, string str) {
-	vector<double>::iterator xi;
-
-	if (str == "asc") {
-		sort(x.begin(), x.end(), howToSortAsc);
-	}
-	else {
-		sort(x.begin(), x.end(), howToSortDesc);
-	}
-
-	for (xi = x.begin(); xi != x.end(); ++xi) {
-		cout << *xi;
-	}
-	cout << endl;
+	cout << "Area of a (equilaterial) triangle: " << area << "." << endl;
 }
 
 int main()
 {
-	variableType(3);
+
+	//Part One 
+	/*variableType(3);
 	variableType(2.5);
 	variableType("string");
 
@@ -100,6 +115,23 @@ int main()
 	sortVector(myLongVec, "asc");
 	sortVector(myLongVec, "desc");
 	sortVector(myDoubleVec, "asc");
-	sortVector(myDoubleVec, "desc");
+	sortVector(myDoubleVec, "desc");*/
+
+	//Part Two
+	/*Message myMessage;
+	myMessage.print();
+
+	Message myOwnMessage("big message!");
+	myMessage.print("hello world");*/
+
+	//Part Three
+	Circle myCircle(3);
+	Square mySquare(5);
+	Triangle myTriangle(3);
+
+	area(myCircle.radius);
+	area(mySquare.side);
+	area(myTriangle.side);
+
     return 0;
 }
