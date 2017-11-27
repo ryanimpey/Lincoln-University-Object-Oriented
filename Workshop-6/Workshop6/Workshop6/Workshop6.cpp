@@ -5,6 +5,7 @@
 #include "robot.h"
 #include "shape.h"
 #include "animal.h"
+#include "statistics.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -35,9 +36,18 @@ int main()
     return 0;*/
 
 	//Part Three
-	Zebra myZeb("doug", 23);
+	/*Zebra myZeb("doug", 23);
 	myZeb.getInfo();
 
 	Dolphin myDol("alan", 42);
-	myDol.getInfo();
+	myDol.getInfo();*/
+
+	//Part Four
+	vector<float> myVector = {2,4,6,8 };
+	average(myVector);
+
+	vector<float> unsortVector = { 5,4,2,3,1, 6 };
+	median(unsortVector);
+
+	standardDev(myVector);
 }
