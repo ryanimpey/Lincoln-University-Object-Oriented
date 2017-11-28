@@ -1,9 +1,9 @@
 // Workshop8.cpp : Defines the entry point for the console application.
 //
-#include "stdafx.h"
 #include "point.h"
 #include "comnum.h"
 #include "time.h"
+#include "matrix.h"
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -47,6 +47,11 @@ int main()
 	//c = a + b;
 	//c.printTime();
 
+
+	//Part Three
+	Matrix a(3, 4, 1);
+
+	cout << a;
 
 	return 0;
 }
