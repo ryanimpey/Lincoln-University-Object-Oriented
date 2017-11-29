@@ -22,7 +22,7 @@ int main() {
 	//****************************************************
 	Image *img1 = new Image(3264, 2448, 0);
 
-	*img1 = img1->readPPM("Images/ImageStacker_set1/IMG_1.ppm");
+	/**img1 = */img1->readPPM("Images/ImageStacker_set1/IMG_1.ppm");
 
 	//You can access the individual pixel data
 	//This accesses and writes out the r, g, b pixel values for the first pixel
@@ -38,6 +38,7 @@ int main() {
 
 	delete img1;
 
+	//Prevents auto close
 	int endbreak;
 	cin >> noskipws >> endbreak;
 	return 0;

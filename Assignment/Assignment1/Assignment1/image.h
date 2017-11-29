@@ -34,7 +34,7 @@ public:
 	const Rgb& operator [] (const unsigned int &i) const;
 	Rgb& operator [] (const unsigned int &i);
 
-	Image readPPM(const char *filename);
+	void readPPM(const char *filename);
 
 
 	//Write data out to a ppm file

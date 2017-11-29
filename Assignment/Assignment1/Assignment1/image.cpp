@@ -58,12 +58,12 @@ Image::Rgb& Image::operator[] (const unsigned int &i) {
 
 
 
-Image Image::readPPM(const char *filename) {
+void Image::readPPM(const char *filename) {
 	//Remove this cout to prevent multiple outputs
 	cout << "Reading image ..." << endl;
 	ifstream ifs;
 	ifs.open(filename, ios::binary);
-	Image src;
+	//Image src;
 	try {
 		if (ifs.fail()) {
 			throw("Can't open the input file - is it named correctly/is it in the right directory?");
@@ -73,17 +73,17 @@ Image Image::readPPM(const char *filename) {
 		ifs >> header;
 		if (strcmp(header.c_str(), "P6") != 0) throw("Can't read the input file - is it in binary format (Has P6 in the header)?");
 		ifs >> w >> h >> b;
-		src.w = w;
-		src.h = h;
+		//src.w = w;
+		//src.h = h;
 		//cout << w << " " << h << endl;
-		src.pixels = new Image::Rgb[w * h]; // this is throw an exception if bad_alloc 
+		//src.pixels = new Image::Rgb[w * h]; // this is throw an exception if bad_alloc 
 		ifs.ignore(256, '\n'); // skip empty lines in necessary until we get to the binary data 
 		unsigned char pix[3]; // read each pixel one by one and convert bytes to floats 
 		for (int i = 0; i < w * h; ++i) {
 			ifs.read(reinterpret_cast<char *>(pix), 3);
-			src.pixels[i].r = pix[0] / 255.f;
-			src.pixels[i].g = pix[1] / 255.f;
-			src.pixels[i].b = pix[2] / 255.f;
+			/*src.*/pixels[i].r = pix[0] / 255.f;
+			/*src.*/pixels[i].g = pix[1] / 255.f;
+			/*src.*/pixels[i].b = pix[2] / 255.f;
 		}
 		ifs.close();
 	}
@@ -94,7 +94,7 @@ Image Image::readPPM(const char *filename) {
 	//Confirm image read
 	//Delete this to prevent multiple lines output
 	cout << "Image read" << endl;
-	return src;
+	//return src;
 }
 
 void Image::writePPM(const char *filename) {
