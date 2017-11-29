@@ -30,7 +30,7 @@ public:
 	};
 
 	Image();
-	Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c);
+	Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
 	const Rgb& operator [] (const unsigned int &i) const;
 	Rgb& operator [] (const unsigned int &i);
 

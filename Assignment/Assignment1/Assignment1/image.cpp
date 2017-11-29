@@ -40,7 +40,7 @@ Image::Image() : w(0), h(0), pixels(nullptr) {
 
 }
 
-Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack) : w(_w), h(_h), pixels(NULL) {
+Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : w(_w), h(_h), pixels(NULL) {
 	pixels = new Rgb[w * h];
 	for (int i = 0; i < w * h; ++i) {
 		pixels[i] = c;
