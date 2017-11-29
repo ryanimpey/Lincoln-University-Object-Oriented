@@ -3,7 +3,15 @@
 
 using namespace std;
 
+//Moving these here prevents already defined in image.obj error.
+const Image::Rgb Image::kBlack = Image::Rgb(0);
+const Image::Rgb Image::kWhite = Image::Rgb(1);
+const Image::Rgb Image::kRed = Image::Rgb(1, 0, 0);
+const Image::Rgb Image::kGreen = Image::Rgb(0, 1, 0);
+const Image::Rgb Image::kBlue = Image::Rgb(0, 0, 1);
+
 int main() {
+
 	cout << "************************************" << endl;
 	cout << "Image Stacker / Image Scaler" << endl;
 	cout << "************************************" << endl;
@@ -12,7 +20,7 @@ int main() {
 	//As an example, read one ppm file and write it out to testPPM.ppm
 	//We need to specify the dimensions of the image
 	//****************************************************
-	Image *img1 = new Image(3264, 2448);
+	Image *img1 = new Image(3264, 2448, 0);
 
 	*img1 = img1->readPPM("Images/ImageStacker_set1/IMG_1.ppm");
 
