@@ -1,3 +1,4 @@
+#include "robot.h"
 #include "ab.h"
 #include <iostream>
 
@@ -10,9 +11,11 @@ int main() {
 	A *aP = &b;
 	cout << aP->report() << endl; // want this to produce “I am child class”
 
+	SocialRobot myrob("doug");
+
+
 	int breakP = 0;
 	cin >> breakP;
-
 	return 0;
 
 }
