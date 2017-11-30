@@ -15,20 +15,15 @@ const Image::Rgb Image::kBlue = Image::Rgb(0, 0, 1);
 
 int main() {
 
-	cout << "************************************" << endl;
-	cout << "Image Stacker / Image Scaler" << endl;
-	cout << "************************************" << endl;
+	//Push welcome screen to console
+	cout << " ************************************" << endl;
+	cout << "    Image Stacker / Image Scaler    " << endl;
+	cout << " ************************************" << endl;
 
-	//****************************************************
-	//As an example, read one ppm file and write it out to testPPM.ppm
-	//We need to specify the dimensions of the image
-	//****************************************************
-	Image *img1 = new Image(3264, 2448);
-
+	//Create imageVector to store images in.
 	vector<Image> imageVec;
-	vector<Image>::iterator iv;
 	
-	// Read In all images into imageVec
+	// Read all images and push_back into imageVec. Creates nice [****] loading indicator
 	cout << "// Reading Images //" << endl;
 	cout << "[";
 	for (int i = 1; i < 14; ++i) {
@@ -45,62 +40,21 @@ int main() {
 	}
 	cout << "]" << endl;
 
-	///**img1 = */img1->readPPM("Images/ImageStacker_set1/IMG_12.ppm");
-
-	//cout << "imageVec size:" << imageVec.size() << endl;
-
-	//Write out all images
-	/*int testInt = 1;
-	for (iv = imageVec.begin(); iv != imageVec.end(); ++iv) {
-		Image i = *iv;
-		ostringstream fileP;
-		fileP << testInt << ".ppm";
-		string filePa = fileP.str();
-		const char *filePathca = filePa.c_str();
-		
-		cout << filePa << endl;
-
-		i.writePPM(filePathca);
-
-		testInt++;
-	}*/
-
-	//	int num = imageVec.at(0).h;
-	//	cout << num << endl;
-
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
-		for (iv = imageVec.begin(); iv != imageVec.end(); ++iv) {
-			Image tempImg = *iv;
-			img1->pixels[i].r += tempImg.pixels[i].r;
-			img1->pixels[i].g += tempImg.pixels[i].g;
-			img1->pixels[i].b += tempImg.pixels[i].b;
-
-		}
-		img1->pixels[i].r /= imageVec.size();
-		img1->pixels[i].g /= imageVec.size();
-		img1->pixels[i].b /= imageVec.size();
-	}
 
 	//You can access the individual pixel data
-	//This accesses and writes out the r, g, b pixel values for the first pixel
 	//Values are multiplied by 255 as they are 'clamped' between 0 and 1
 	//cout << (img1->pixels[0].r) * 255 << endl;
 	//cout << (img1->pixels[1].g) * 255 << endl;
 	//cout << (img1->pixels[0].b) * 255 << endl;
 
-	//***************************************************
-	//Output the image data to a file for viewing
-	//***************************************************
 
-	//img1->writePPM("testPPM.ppm");
-
+	//Create new algorithms object from Algorithms class
 	Algorithms *algorithmObj = new Algorithms;
-
+	//Calls the meanBlend method passing through the previously created.
 	algorithmObj->meanBlend(imageVec);
+	algorithmObj->medianBlend(imageVec);
 
-	delete img1;
-
-	//Prevents auto close
+	//Prevents auto close.
 	int endbreak;
 	cin >> noskipws >> endbreak;
 	return 0;

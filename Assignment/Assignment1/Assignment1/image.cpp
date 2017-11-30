@@ -108,8 +108,6 @@ void Image::readPPM(const char *filename) {
 }
 
 void Image::writePPM(const char *filename) {
-	//cout << filename << endl;
-	cout << "Writing image ..." << endl;
 	if (w == 0 || h == 0) { fprintf(stderr, "Can't save an empty image\n"); return; }
 	ofstream ofs;
 	try {
@@ -126,8 +124,7 @@ void Image::writePPM(const char *filename) {
 			ofs << r << g << b;
 		}
 		ofs.close();
-		//Confirm image write
-		cout << "Image written" << endl;
+		//Confirm image write moved to individual methods
 	}
 	catch (const char *err) {
 		fprintf(stderr, "%s\n", err);
