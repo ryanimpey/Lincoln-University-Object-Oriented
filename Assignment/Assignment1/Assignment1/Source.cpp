@@ -1,4 +1,5 @@
 #include "image.h"
+#include "algorithms.h"
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -91,7 +92,11 @@ int main() {
 	//Output the image data to a file for viewing
 	//***************************************************
 
-	img1->writePPM("testPPM.ppm");
+	//img1->writePPM("testPPM.ppm");
+
+	Algorithms *algorithmObj = new Algorithms;
+
+	algorithmObj->meanBlend(imageVec);
 
 	delete img1;
 
