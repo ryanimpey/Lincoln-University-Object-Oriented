@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 //*********************************************
 //Image class to hold and allow manipulation of images once read into the code
 //from https://www.scratchapixel.com/
@@ -30,7 +29,7 @@ public:
 	};
 
 	Image();
-	Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
+	Image(const unsigned int, const unsigned int, const Rgb &c = kBlack);
 	const Rgb& operator [] (const unsigned int &i) const;
 	Rgb& operator [] (const unsigned int &i);
 

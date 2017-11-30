@@ -27,25 +27,29 @@ int main() {
 	vector<Image> imageVec;
 	vector<Image>::iterator iv;
 	
-	//Read In all images into imageVec
+	// Read In all images into imageVec
+	cout << "// Reading Images //" << endl;
+	cout << "[";
 	for (int i = 1; i < 14; ++i) {
 		//Convert string for each file to a char* for readPPM
 		ostringstream filePath;
 		filePath << "Images/ImageStacker_set1/IMG_" << i << ".ppm";
 		string fileName = filePath.str();
-		cout << fileName << endl;
+		//cout << fileName << endl;
 		const char *filePathC = fileName.c_str();
 		
 		Image img(3264, 2448, 0);
 		img.readPPM(filePathC);
 		imageVec.push_back(img);
 	}
+	cout << "]" << endl;
 
 	///**img1 = */img1->readPPM("Images/ImageStacker_set1/IMG_12.ppm");
-	int testInt = 1;
 
-	cout << imageVec.size() << endl;
+	//cout << "imageVec size:" << imageVec.size() << endl;
 
+	//Write out all images
+	/*int testInt = 1;
 	for (iv = imageVec.begin(); iv != imageVec.end(); ++iv) {
 		Image i = *iv;
 		ostringstream fileP;
@@ -58,8 +62,23 @@ int main() {
 		i.writePPM(filePathca);
 
 		testInt++;
-	}
+	}*/
 
+	//	int num = imageVec.at(0).h;
+	//	cout << num << endl;
+
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+		for (iv = imageVec.begin(); iv != imageVec.end(); ++iv) {
+			Image tempImg = *iv;
+			img1->pixels[i].r += tempImg.pixels[i].r;
+			img1->pixels[i].g += tempImg.pixels[i].g;
+			img1->pixels[i].b += tempImg.pixels[i].b;
+
+		}
+		img1->pixels[i].r /= imageVec.size();
+		img1->pixels[i].g /= imageVec.size();
+		img1->pixels[i].b /= imageVec.size();
+	}
 
 	//You can access the individual pixel data
 	//This accesses and writes out the r, g, b pixel values for the first pixel
@@ -71,7 +90,8 @@ int main() {
 	//***************************************************
 	//Output the image data to a file for viewing
 	//***************************************************
-	//img1->writePPM("testPPM.ppm");
+
+	img1->writePPM("testPPM.ppm");
 
 	delete img1;
 

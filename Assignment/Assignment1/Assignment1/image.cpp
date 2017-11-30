@@ -4,20 +4,25 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <algorithm>
 
 using namespace std;
 
-Image::Rgb::Rgb() : r(0), g(0), b(0) {
-
+Image::Rgb::Rgb() {
+	r = 0;
+	g = 0;
+	b = 0;
 }
 
-Image::Rgb::Rgb(float c) : r(c), g(c), b(c) {
-
+Image::Rgb::Rgb(float c) {
+	r = c;
+	b = c;
+	g = c;
 }
 
-Image::Rgb::Rgb(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {
-
+Image::Rgb::Rgb(float _r, float _g, float _b) {
+	r = _r;
+	g = _g;
+	b = _b;
 }
 
 bool Image::Rgb::operator!= (const Rgb &c) {
@@ -36,16 +41,21 @@ float& operator+= (float &f, const Image::Rgb rgb) {
 	f += (rgb.r + rgb.g + rgb.b) / 3.f; return f;
 }
 
-Image::Image() : w(0), h(0), pixels(nullptr) {
-
+Image::Image() {
+	w = 0;
+	h = 0;
+	Image::Rgb*pixels(nullptr);
 }
 
-Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : w(_w), h(_h), pixels(NULL) {
-	pixels = new Rgb[w * h];
-	for (int i = 0; i < w * h; ++i) {
-		pixels[i] = c;
-	}
-}
+//Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c){
+//	w = _w;
+//	h = _h;
+//
+//	pixels = new Rgb[w * h];
+//	for (int i = 0; i < w * h; ++i) {
+//		pixels[i] = c;
+//	}
+//}
 
 //RGB const ops
 const Image::Rgb& Image::operator[](const unsigned int &i) const {
@@ -60,7 +70,7 @@ Image::Rgb& Image::operator[] (const unsigned int &i) {
 
 void Image::readPPM(const char *filename) {
 	//Remove this cout to prevent multiple outputs
-	cout << "Reading image ..." << endl;
+	cout << "*";
 	ifstream ifs;
 	ifs.open(filename, ios::binary);
 	//Image src;
@@ -93,7 +103,7 @@ void Image::readPPM(const char *filename) {
 	}
 	//Confirm image read
 	//Delete this to prevent multiple lines output
-	cout << "Image read" << endl;
+	//cout << "Image read" << endl;
 	//return src;
 }
 
@@ -128,4 +138,14 @@ void Image::writePPM(const char *filename) {
 Image::~Image() {
 	//if (pixels != NULL) delete[] pixels;
 	//delete[] pixels;
+}
+
+Image::Image(const unsigned int _w, const unsigned int _h, const Rgb &c) {
+	w = _w;
+	h = _h;
+	pixels = NULL;
+
+	pixels = new Rgb[w * h];
+	for (int i = 0; i < w * h; ++i)
+		pixels[i] = c;
 }
