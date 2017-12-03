@@ -1,5 +1,5 @@
 #include "image.h"
-#include "algorithms.h"
+#include "calculations.h"
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -40,19 +40,8 @@ int main() {
 	}
 	cout << "]" << endl;
 
-
-	//You can access the individual pixel data
-	//Values are multiplied by 255 as they are 'clamped' between 0 and 1
-	//cout << (img1->pixels[0].r) * 255 << endl;
-	//cout << (img1->pixels[1].g) * 255 << endl;
-	//cout << (img1->pixels[0].b) * 255 << endl;
-
-
-	//Create new algorithms object from Algorithms class
-	Algorithms *algorithmObj = new Algorithms;
-	//Calls the meanBlend method passing through the previously created.
-	algorithmObj->meanBlend(imageVec);
-	algorithmObj->medianBlend(imageVec);
+	Image meanImage = calculateMean(imageVec);
+	meanImage.writePPM("meanImage.ppm");
 
 	//Prevents auto close.
 	int endbreak;

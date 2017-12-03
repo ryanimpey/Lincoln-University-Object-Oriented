@@ -33,6 +33,10 @@ Image::Rgb& Image::Rgb::operator*= (const Rgb &rgb) {
 	r *= rgb.r, g *= rgb.g, b *= rgb.b; return *this;
 }
 
+Image::Rgb& Image::Rgb::operator/= (const int val) {
+	r /= val, g /= val, b /= val; return *this;
+}
+
 Image::Rgb& Image::Rgb::operator+= (const Rgb &rgb) {
 	r += rgb.r, g += rgb.g, b += rgb.b; return *this;
 }
@@ -47,15 +51,15 @@ Image::Image() {
 	Image::Rgb*pixels(nullptr);
 }
 
-//Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c){
-//	w = _w;
-//	h = _h;
-//
-//	pixels = new Rgb[w * h];
-//	for (int i = 0; i < w * h; ++i) {
-//		pixels[i] = c;
-//	}
-//}
+Image::Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c){
+	w = _w;
+	h = _h;
+
+	pixels = new Rgb[w * h];
+	for (int i = 0; i < w * h; ++i) {
+		pixels[i] = c;
+	}
+}
 
 //RGB const ops
 const Image::Rgb& Image::operator[](const unsigned int &i) const {
@@ -65,6 +69,7 @@ const Image::Rgb& Image::operator[](const unsigned int &i) const {
 Image::Rgb& Image::operator[] (const unsigned int &i) {
 	return pixels[i];
 }
+
 
 
 
@@ -137,12 +142,12 @@ Image::~Image() {
 	//delete[] pixels;
 }
 
-Image::Image(const unsigned int _w, const unsigned int _h, const Rgb &c) {
-	w = _w;
-	h = _h;
-	pixels = NULL;
-
-	pixels = new Rgb[w * h];
-	for (int i = 0; i < w * h; ++i)
-		pixels[i] = c;
-}
+//Image::Image(const unsigned int _w, const unsigned int _h, const Rgb &c) {
+//	w = _w;
+//	h = _h;
+//	pixels = NULL;
+//
+//	pixels = new Rgb[w * h];
+//	for (int i = 0; i < w * h; ++i)
+//		pixels[i] = c;
+//}

@@ -24,12 +24,13 @@ public:
 		bool operator != (const Rgb &c);
 		Rgb& operator *= (const Rgb &rgb);
 		Rgb& operator += (const Rgb &rgb);
+		Rgb& operator /= (const int);
 		friend float& operator += (float &f, const Rgb rgb);
 		float r, g, b;
 	};
 
 	Image();
-	Image(const unsigned int, const unsigned int, const Rgb &c = kBlack);
+	Image(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
 	const Rgb& operator [] (const unsigned int &i) const;
 	Rgb& operator [] (const unsigned int &i);
 
