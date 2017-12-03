@@ -65,3 +65,7 @@ Image calculateMedian(vector<Image> imageVec) {
 
 	return outputImage;
 }
+
+Image calculateSigma(vector<Image>) {
+
+}
