@@ -25,6 +25,7 @@ public:
 		Rgb& operator *= (const Rgb &rgb);
 		Rgb& operator += (const Rgb &rgb);
 		Rgb& operator /= (const int);
+		Rgb& operator -= (const Rgb &rgb);
 		friend float& operator += (float &f, const Rgb rgb);
 		float r, g, b;
 	};

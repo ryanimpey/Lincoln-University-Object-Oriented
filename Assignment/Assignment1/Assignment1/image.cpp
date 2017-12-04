@@ -41,6 +41,10 @@ Image::Rgb& Image::Rgb::operator+= (const Rgb &rgb) {
 	r += rgb.r, g += rgb.g, b += rgb.b; return *this;
 }
 
+Image::Rgb& Image::Rgb::operator -= (const Rgb &rgb) {
+	r -= rgb.r, g -= rgb.g, b -= rgb.b; return *this;
+}
+
 float& operator+= (float &f, const Image::Rgb rgb) {
 	f += (rgb.r + rgb.g + rgb.b) / 3.f; return f;
 }

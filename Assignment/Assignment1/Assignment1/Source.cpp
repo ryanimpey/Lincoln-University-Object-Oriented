@@ -47,16 +47,19 @@ int main() {
 
 
 
-	cout << "Started median file creation..." << endl;
-	high_resolution_clock::time_point epochStart = high_resolution_clock::now(); //Create timer for median start
-		Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
-	high_resolution_clock::time_point epochEnd = high_resolution_clock::now(); //Create timer for median end
-	medianImage.writePPM("medianImage.ppm"); // Write image to file
+	//cout << "Started median file creation..." << endl;
+	//high_resolution_clock::time_point epochStart = high_resolution_clock::now(); //Create timer for median start
+	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
+	//high_resolution_clock::time_point epochEnd = high_resolution_clock::now(); //Create timer for median end
+	//medianImage.writePPM("medianImage.ppm"); // Write image to file
 
-	auto epochStartToMS = epochStart.time_since_epoch();
+	Image standardImage = calculateStandard(imageVec);
+
+
+	/*auto epochStartToMS = epochStart.time_since_epoch();
 	auto epochEndToMS = epochEnd.time_since_epoch();
 	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
-	cout << "Median File created in: " << millis << "ms" << endl;
+	cout << "Median File created in: " << millis << "ms" << endl;*/
 
 	//Prevents auto close.
 	int endbreak;

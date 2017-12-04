@@ -2,10 +2,12 @@
 
 #include <string>
 #include <array>
+#include <algorithm>
+
 using namespace std;
 
 Image calculateMean(vector<Image> imageVec) {
-
+	cout << "mean calculate" << endl;
 	Image outputImage(imageVec.at(0).w, imageVec.at(0).h); //Create output image for mean values
 
 	vector<Image>::iterator imageIt; //Create iterator to go through images in vector
@@ -18,6 +20,7 @@ Image calculateMean(vector<Image> imageVec) {
 		}
 		outputImage.pixels[i] /= imageVec.size();
 	}
+	cout << "mean calculated" << endl;
 	return outputImage;
 }
 
@@ -66,6 +69,56 @@ Image calculateMedian(vector<Image> imageVec) {
 	return outputImage;
 }
 
-Image calculateSigma(vector<Image>) {
+Image calculateStandard(vector<Image> imageVec) {
+	Image meanImage = calculateMean(imageVec); //Get mean image values using previously defined method
+	Image standardImage(imageVec.at(0).w, imageVec.at(0).h); //Create image to push standard values to
 
+	vector<Image> standardVector = imageVec; // Create standard vector for calculations
+	vector<Image>::iterator svi;
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+
+		for (svi = standardVector.begin(); svi != standardVector.end(); svi++) {
+			Image temp = *svi; // Create temp image to hold current vector image
+
+			/*if (i == 200) {
+				cout << "Original value: " << temp.pixels[i].r << endl;
+			}*/
+
+			temp.pixels[i] -= meanImage.pixels[i]; //Minus the mean from each pixel
+			temp.pixels[i] *= temp.pixels[i]; //Square the result
+
+			standardImage.pixels[i] += temp.pixels[i];
+
+		}
+
+		/*if (i == 200) {
+			cout << "Standard image total: " << standardImage.pixels[i].r << endl;
+		}*/
+
+		standardImage.pixels[i] /= imageVec.size();
+
+
+		/*if (i == 200) {
+			cout << "Standard value divided by " << imageVec.size() << ": " << standardImage.pixels[i].r << endl;
+		}*/
+
+		standardImage.pixels[i].r = sqrt(standardImage.pixels[i].r);
+		standardImage.pixels[i].g = sqrt(standardImage.pixels[i].g);
+		standardImage.pixels[i].b = sqrt(standardImage.pixels[i].b);
+
+		/*if (i == 200) {
+			cout << "Standard value square rooted: " << standardImage.pixels[i].r << endl;
+		}*/
+
+	}
+	int it = 0;
+	cin >> noskipws >> it;
+
+	return standardImage;
+
+}
+
+Image calculateSigma(vector<Image>) {
+	Image newImage(100,100);
+	return newImage;
 }
