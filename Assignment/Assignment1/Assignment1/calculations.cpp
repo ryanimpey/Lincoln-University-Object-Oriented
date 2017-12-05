@@ -118,7 +118,19 @@ Image calculateStandard(vector<Image> imageVec) {
 
 }
 
-Image calculateSigma(vector<Image>) {
-	Image newImage(100,100);
-	return newImage;
+vector<Image> calculateSigma(vector<Image> imageVec) {
+
+	Image standardImage = calculateStandard(imageVec); //Calculate standard deviation
+	Image medianImage = calculateMedian(imageVec); //Calculate median value from vectors
+	vector<Image> outputVector;
+	vector<Image>::iterator svi; //Iterator for imageVec
+
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+		for (svi = imageVec.begin(); svi != imageVec.end(); svi++) {
+			//If image is less than median - (1*sd) or greater than median + (1*sd)
+			//do this for each image, if the image pixel value is not in boundaries then remove it
+		}
+	}
+
+	return outputVector;
 }

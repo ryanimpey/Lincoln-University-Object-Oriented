@@ -17,6 +17,8 @@ const Image::Rgb Image::kBlue = Image::Rgb(0, 0, 1);
 
 int main() {
 
+	cout << 5 + NULL + 5 << endl;
+
 	//Push welcome screen to console
 	cout << " ************************************" << endl;
 	cout << "    Image Stacker / Image Scaler    " << endl;
@@ -54,7 +56,6 @@ int main() {
 	//medianImage.writePPM("medianImage.ppm"); // Write image to file
 
 	Image standardImage = calculateStandard(imageVec);
-
 
 	/*auto epochStartToMS = epochStart.time_since_epoch();
 	auto epochEndToMS = epochEnd.time_since_epoch();
