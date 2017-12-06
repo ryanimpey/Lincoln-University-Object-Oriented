@@ -11,3 +11,4 @@ float calculateMean(vector<float>);
 float calculateMedian(vector<float>);
 float calculateStandard(vector<float>);
 vector<float> calculateSigma(vector<float>, float, float);
+vector<float> calculateSingleSigma(vector<float>, float, float, float loops = 0);

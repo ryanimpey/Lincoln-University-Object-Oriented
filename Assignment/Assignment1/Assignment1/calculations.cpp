@@ -164,23 +164,67 @@ float calculateStandard(vector<float> floatVec) {
 
 }
 
-vector<float> calculateSigma(vector<float> floatVec, float medianImagef, float standardImagef) {
+vector<float> calculateSigma(vector<Image> imageVec) {
 
 	//Image medianImage = medianImagei; //Take input image
 	//Image standardImage = standardImagei; //Take input image
-	vector<float> outputVector; //Create output vector
-	vector<float>::iterator ovi; //Create output iterator
+	//If image is less than median - (1*sd) or greater than median + (1*sd)
+	//do this for each image, if the image pixel value is not in boundaries then remove it
+	//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
+	
+	vector<Image>::iterator ivi;
 
-	for (ovi = floatVec.begin(); ovi != floatVec.end(); ovi++) {
-		if (*ovi < medianImagef - standardImagef || *ovi > medianImagef + standardImagef) {}
-		else {
-			outputVector.push_back(*ovi);
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+		vector<float> redVals;
+		vector<float> greenVals;
+		vector<float> blueVals;
+
+		for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
+			Image temp = *ivi;
+			redVals.push_back(temp.pixels[i].r);
+			greenVals.push_back(temp.pixels[i].g);
+			blueVals.push_back(temp.pixels[i].b);
 		}
-		//If image is less than median - (1*sd) or greater than median + (1*sd)
-		//do this for each image, if the image pixel value is not in boundaries then remove it
-		//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
+
+		float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
+		float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
+		float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
+
+		////float redPixel = calculateSingleSigma(redVals, redMed, redSta);
+		//float greenPixel = calculateSingleSigma(greenVals, greenMed, greenSta);
+		//float bluePixel = calculateSingleSigma(blueVals, blueMed, blueSta);
+
 	}
 
-	vector<float> eggs;
-	return eggs;
+}
+
+vector<float> calculateSingleSigma(vector<float> floatVec, float median, float standard, float loops) {
+	vector<float> outputVec;
+	vector<float>::iterator fi;
+	int loopTotal = loops;
+	cout << "------\nLoop: " << loopTotal << "------\n" << endl;
+	outputVec.clear();
+	cout << "Cleared: new size " << outputVec.size() << endl;
+
+	for (fi = floatVec.begin(); fi != floatVec.end(); fi++) {
+		if (*fi < (median - standard) || *fi > median + standard) {}
+		else {
+			cout << *fi << " is greater than " << median - standard << " and is smaller than" << median + standard << endl;
+			outputVec.push_back(*fi);
+		}
+	}
+
+	if (loopTotal < 5) {
+		loopTotal++;
+		cout << "Output: Vector" << endl;
+		for (fi = outputVec.begin(); fi != outputVec.end(); fi++) {
+			cout << *fi << ", ";
+		}
+		cout << endl;
+		return calculateSingleSigma(outputVec, calculateMedian(outputVec), calculateStandard(outputVec), loopTotal);
+	}
+	else {
+		return outputVec;
+	}
+
 }

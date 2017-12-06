@@ -17,10 +17,6 @@ const Image::Rgb Image::kBlue = Image::Rgb(0, 0, 1);
 
 int main() {
 
-	vector<float> myFloats = { 1,2,3,4,5 };
-	float standardValue = calculateStandard(myFloats);
-	cout << standardValue << endl;
-
 	//Push welcome screen to console
 	cout << " ************************************" << endl;
 	cout << "    Image Stacker / Image Scaler    " << endl;
@@ -49,6 +45,18 @@ int main() {
 
 	//Image meanImage = calculateMean(imageVec);
 	//meanImage.writePPM("meanImage.ppm");
+
+
+
+	vector<float> myFloats = { imageVec.at(0).pixels[0].r,imageVec.at(1).pixels[0].r, imageVec.at(2).pixels[0].r, imageVec.at(3).pixels[0].r, imageVec.at(4).pixels[0].r, imageVec.at(5).pixels[0].r };
+	float standardValue = calculateStandard(myFloats);
+	float medianValue = calculateMedian(myFloats);
+	vector<float> eggs = calculateSingleSigma(myFloats, medianValue, standardValue, 1);
+	vector<float>::iterator ei = eggs.begin();
+	cout << "Done!!\n" << eggs.size() << endl;
+	for (ei; ei != eggs.end(); ei++) {
+		cout << *ei << endl;
+	}
 
 
 
