@@ -43,22 +43,35 @@ int main() {
 	}
 	cout << "]" << endl;
 
-	//Image meanImage = calculateMean(imageVec);
-	//meanImage.writePPM("meanImage.ppm");
-
-
-
-	vector<float> myFloats = { imageVec.at(0).pixels[0].r,imageVec.at(1).pixels[0].r, imageVec.at(2).pixels[0].r, imageVec.at(3).pixels[0].r, imageVec.at(4).pixels[0].r, imageVec.at(5).pixels[0].r };
-	float standardValue = calculateStandard(myFloats);
-	float medianValue = calculateMedian(myFloats);
-	vector<float> eggs = calculateSingleSigma(myFloats, medianValue, standardValue, 1);
-	vector<float>::iterator ei = eggs.begin();
-	cout << "Done!!\n" << eggs.size() << endl;
-	for (ei; ei != eggs.end(); ei++) {
-		cout << *ei << endl;
+	vector<float> fvec;
+	for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
+		Image tempImg = *ivi;
+		fvec.push_back(tempImg.pixels[0].r);
 	}
 
+	cout << "calculate mean" << endl;
+	calculateMean(fvec);
+	cout << "mean done" << endl;
 
+	cout << "calculate median" << endl;
+	calculateMedian(fvec);
+	cout << "median done" << endl;
+
+	cout << "calculate standard" << endl;
+	calculateStandard(fvec);
+	cout << "standard done" << endl;
+
+	cout << "calculate single sigma" << endl;
+	calculateStandard(fvec);
+	cout << "single sig done" << endl;
+
+	//float bigEggs = calculateSingleSigma(fvec, calculateMedian(fvec), calculateStandard(fvec));
+	//cout << bigEggs << endl;
+
+	Image sigmaImage = calculateSigma(imageVec);
+	sigmaImage.writePPM("sigmaImage.ppm");
+	//Image meanImage = calculateMean(imageVec);
+	//meanImage.writePPM("meanImage.ppm");
 
 	//cout << "Started median file creation..." << endl;
 	//high_resolution_clock::time_point epochStart = high_resolution_clock::now(); //Create timer for median start
