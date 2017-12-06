@@ -178,11 +178,6 @@ Image calculateSigma(vector<Image> imageVec) {
 
 	for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
 
-		if (i % 100000 == 0) {
-			cout << "100k done: "<< i << endl;
-		}
-
-
 		vector<float> redVals;
 		vector<float> greenVals;
 		vector<float> blueVals;

@@ -111,13 +111,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="algorithms.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="calculations.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="algorithms.h" />
     <ClInclude Include="calculations.h" />
     <ClInclude Include="image.h" />
   </ItemGroup>

@@ -46,6 +46,12 @@ int main() {
 	//float bigEggs = calculateSingleSigma(fvec, calculateMedian(fvec), calculateStandard(fvec));
 	//cout << bigEggs << endl;
 
+	Image meanImage = calculateMean(imageVec);
+	meanImage.writePPM("meanImage.ppm");
+
+	Image medianImage = calculateMedian(imageVec);
+	medianImage.writePPM("medianImage.ppm");
+
 	Image sigmaImage = calculateSigma(imageVec);
 	sigmaImage.writePPM("sigmaImage.ppm");
 	//Image meanImage = calculateMean(imageVec);
