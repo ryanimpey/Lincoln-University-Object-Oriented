@@ -43,28 +43,6 @@ int main() {
 	}
 	cout << "]" << endl;
 
-	vector<float> fvec;
-	for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
-		Image tempImg = *ivi;
-		fvec.push_back(tempImg.pixels[0].r);
-	}
-
-	cout << "calculate mean" << endl;
-	calculateMean(fvec);
-	cout << "mean done" << endl;
-
-	cout << "calculate median" << endl;
-	calculateMedian(fvec);
-	cout << "median done" << endl;
-
-	cout << "calculate standard" << endl;
-	calculateStandard(fvec);
-	cout << "standard done" << endl;
-
-	cout << "calculate single sigma" << endl;
-	calculateStandard(fvec);
-	cout << "single sig done" << endl;
-
 	//float bigEggs = calculateSingleSigma(fvec, calculateMedian(fvec), calculateStandard(fvec));
 	//cout << bigEggs << endl;
 

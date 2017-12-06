@@ -176,13 +176,12 @@ Image calculateSigma(vector<Image> imageVec) {
 	vector<Image>::iterator ivi;
 	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 
-	for (int i = 3444947; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
+	for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
 
 		if (i % 100000 == 0) {
 			cout << "100k done: "<< i << endl;
 		}
 
-		cout << "-- PIXEL VALUE--: \n\n\n" << i << endl;
 
 		vector<float> redVals;
 		vector<float> greenVals;
@@ -202,11 +201,8 @@ Image calculateSigma(vector<Image> imageVec) {
 		//float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
 		//float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
 
-		cout << "--- BEGIN RED ---\n\n" << endl;
 		outputImage.pixels[i].r = calculateSingleSigma(redVals);
-		cout << "--- BEGIN GREEN ---\n\n" << endl;
 		outputImage.pixels[i].g = calculateSingleSigma(greenVals);
-		cout << "--- BEGIN BLUE ---\n\n" << endl;
 		outputImage.pixels[i].b = calculateSingleSigma(blueVals);
 
 		redVals.clear();
@@ -222,30 +218,30 @@ Image calculateSigma(vector<Image> imageVec) {
 float calculateSingleSigma(vector<float> floatVec, float loops) {
 	vector<float> outputVec;
 	vector<float>::iterator fi;
-
-	cout << "--- LOOP " << loops << "---" << endl;
-	for (fi = floatVec.begin(); fi != floatVec.end(); fi++) {
-		cout << *fi << ", ";
-	}
-	cout << endl;
-
 	float median = calculateMedian(floatVec);
 	float standard = calculateStandard(floatVec);
 
-		for (fi = floatVec.begin(); fi != floatVec.end(); fi++){
-			double temp = *fi;
-			double value = temp - (median + standard);
-			double buffer = 0.0000005;
-			//Buffer required due to float rounding error giving 2.98023 * 10-3 of variation
-			if ((temp < (median - standard - buffer)) || (temp > (median + standard + buffer))) {
+	for (fi = floatVec.begin(); fi != floatVec.end(); fi++){
+		double temp = *fi;
+		double value = temp - (median + standard);
+		if ((temp < (median - standard)) || (temp > (median + standard))) {}
+		else {
+			outputVec.push_back(*fi);
+		}
+	}
+	if (outputVec.size() <= 2) {
+		float outputValue = 0;
+		sort(outputVec.begin(), outputVec.end());
 
-			}
-			else {
-				cout << "Value " << *fi << " is greater than " << median - standard << " and less than " << median + standard << "." << endl;
-				outputVec.push_back(*fi);
-			}
+		if (outputVec.size() % 2 == 0) {
+			outputValue = (outputVec.at(outputVec.size() / 2) + outputVec.at((outputVec.size() / 2) - 1)) / 2;
+		}
+		else {
+			outputValue = outputVec.at(outputVec.size() / 2);
 		}
 
+		return outputValue;
+	}
 	if (loops < 5) {
 		loops++;
 		return calculateSingleSigma(outputVec, loops);
