@@ -17,7 +17,9 @@ const Image::Rgb Image::kBlue = Image::Rgb(0, 0, 1);
 
 int main() {
 
-	cout << 5 + NULL + 5 << endl;
+	vector<float> myFloats = { 1,2,3,4,5 };
+	float standardValue = calculateStandard(myFloats);
+	cout << standardValue << endl;
 
 	//Push welcome screen to console
 	cout << " ************************************" << endl;
@@ -26,6 +28,7 @@ int main() {
 
 	//Create imageVector to store images in.
 	vector<Image> imageVec;
+	vector<Image>::iterator ivi;
 	
 	// Read all images and push_back into imageVec. Creates nice [****] loading indicator
 	cout << "// Reading Images //" << endl;
@@ -54,8 +57,30 @@ int main() {
 	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
 	//high_resolution_clock::time_point epochEnd = high_resolution_clock::now(); //Create timer for median end
 	//medianImage.writePPM("medianImage.ppm"); // Write image to file
+	//Image sigmaImage(imageVec.at(0).h, imageVec.at(0).w);
+	//cout << "done median and standard" << endl;
 
-	Image standardImage = calculateStandard(imageVec);
+	//for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+	//	vector<float> redValues;
+	//	vector<float> greenValues;
+	//	vector<float> blueValues;
+
+	//	for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
+	//		Image tempImage = *ivi;
+	//		redValues.push_back(tempImage.pixels[i].r);
+	//		greenValues.push_back(tempImage.pixels[i].g);
+	//		blueValues.push_back(tempImage.pixels[i].b);
+	//		//If image is less than median - (1*sd) or greater than median + (1*sd)
+	//		//do this for each image, if the image pixel value is not in boundaries then remove it
+	//		//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
+	//	}
+
+	//	calculateSigma(redValues, medianImage.pixels[i].r, standardImage.pixels[i].r);
+	//	calculateSigma(greenValues, medianImage.pixels[i].g, standardImage.pixels[i].g);
+	//	calculateSigma(blueValues, medianImage.pixels[i].b, standardImage.pixels[i].b);
+
+	//}
+
 
 	/*auto epochStartToMS = epochStart.time_since_epoch();
 	auto epochEndToMS = epochEnd.time_since_epoch();

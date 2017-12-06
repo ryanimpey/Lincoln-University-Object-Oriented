@@ -7,4 +7,7 @@ using namespace std;
 Image calculateMean(vector<Image>);
 Image calculateMedian(vector<Image>);
 Image calculateStandard(vector<Image>);
-vector<Image> calculateSigma(vector<Image>);
+float calculateMean(vector<float>);
+float calculateMedian(vector<float>);
+float calculateStandard(vector<float>);
+vector<float> calculateSigma(vector<float>, float, float);
