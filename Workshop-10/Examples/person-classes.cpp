@@ -6,6 +6,12 @@ using namespace std;
 
 class Person
 {
+public:
+	virtual void info() = 0; //Pure virtual
+	virtual void speak() = 0;
+	virtual ~Person() {
+		cout << "Person Destroyed" << endl;
+	};
 /*
 	Implement pure virtual functions for:
 		info()
@@ -37,6 +43,21 @@ public:
 
 class Staff : public UoLPerson
 {
+	Staff() {
+		cout << "Staff constructor called" << end;
+	}
+	Staff(int id) : UoLPerson(id) {
+		cout << "Staff parameterised constructor called." << endl;
+	}
+	~Staff() {
+		cout << "Staff destructor called" << endl;
+	}
+	virtual void speak() {
+		cout << "Hi, I am a staff member from the University of Lincoln" << endl;
+	}
+	void studyInfo() {
+		cout << "I work there" << endl;
+	}
 /*
 	Implement content of this class following Lecture
 	Also add overloaded constructor taking intID as argument
@@ -65,6 +86,8 @@ public:
 
 void Info(vector<Person*> &in)
 {
+	Person temp = &in;
+	temp.info();
 /*
 	Implement content of this function to call info() of
 	all contents of the vector passed in
