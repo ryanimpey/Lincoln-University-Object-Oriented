@@ -1,6 +1,7 @@
 #include "image.h"
 #include <cstdlib> 
 #include <cstdio> 
+#include <math.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -73,8 +74,6 @@ const Image::Rgb& Image::operator[](const unsigned int &i) const {
 Image::Rgb& Image::operator[] (const unsigned int &i) {
 	return pixels[i];
 }
-
-
 
 
 void Image::readPPM(const char *filename) {
@@ -155,3 +154,46 @@ Image::~Image() {
 //	for (int i = 0; i < w * h; ++i)
 //		pixels[i] = c;
 //}
+
+void ScaledImage::scaleTwoTimes() {	
+
+	/*public int[] resizePixels(int[] pixels, int w1, int h1, int w2, int h2) {
+		int[] temp = new int[w2*h2];
+		double x_ratio = w1 / (double)w2;
+		double y_ratio = h1 / (double)h2;
+		double px, py;
+		for (int i = 0; i<h2; i++) {
+			for (int j = 0; j<w2; j++) {
+				px = Math.floor(j*x_ratio);
+				py = Math.floor(i*y_ratio);
+				temp[(i*w2) + j] = pixels[(int)((py*w1) + px)];
+			}
+		}
+		return temp;
+	}*/
+
+	Image *returnImage = new Image(w, h);
+
+	int oldWidth = w / 2;
+	int oldHeight = h / 2;
+
+	float x_ratio = oldWidth / w;
+	float y_ratio = oldHeight / w;
+	double px = 0, py = 0;
+
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			px = floor(j*x_ratio);
+			py = floor(i*y_ratio);
+			//temp[(i*w2)+j] = pixels[(int)((py*w1)+px)] ;
+			*returnImage[i].pixels = pixels[(int)((py*oldWidth) + px)];
+		}
+	}
+
+	this->pixels = returnImage->pixels;
+	delete returnImage;
+}
+
+ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {
+
+}

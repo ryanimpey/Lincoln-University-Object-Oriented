@@ -48,3 +48,9 @@ public:
 	Rgb *pixels; // 1D array of pixels 
 	static const Rgb kBlack, kWhite, kRed, kGreen, kBlue; // Preset colors 
 };
+
+class ScaledImage : public Image {
+public:
+	ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
+	void scaleTwoTimes();
+};

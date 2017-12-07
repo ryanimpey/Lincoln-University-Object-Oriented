@@ -260,3 +260,4 @@ float calculateSingleSigma(vector<float> floatVec, float loops) {
 		cout << (myFloats.at(myFloats.size() / 2) + myFloats.at((myFloats.size() / 2) + 1)) / 2 << endl;*/
 	}
 }
+
