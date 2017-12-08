@@ -157,43 +157,54 @@ Image::~Image() {
 
 void ScaledImage::scaleTwoTimes() {	
 
-	/*public int[] resizePixels(int[] pixels, int w1, int h1, int w2, int h2) {
-		int[] temp = new int[w2*h2];
-		double x_ratio = w1 / (double)w2;
-		double y_ratio = h1 / (double)h2;
-		double px, py;
-		for (int i = 0; i<h2; i++) {
-			for (int j = 0; j<w2; j++) {
-				px = Math.floor(j*x_ratio);
-				py = Math.floor(i*y_ratio);
-				temp[(i*w2) + j] = pixels[(int)((py*w1) + px)];
-			}
-		}
-		return temp;
-	}*/
+	cout << "Scalling image..." << endl;
 
-	Image *returnImage = new Image(w, h);
+	int w1 = w/2;
+	int w2 = w;
+	int h1 = h/2;
+	int h2 = h;
 
-	int oldWidth = w / 2;
-	int oldHeight = h / 2;
+	Image *outputImage = new Image(w2,h2);
+	
+	float x_ratio = (float)w1 / w2;
+	float y_ratio = (float)h1 / h2;
 
-	float x_ratio = oldWidth / w;
-	float y_ratio = oldHeight / w;
-	double px = 0, py = 0;
+	double px;
+	double py;
 
-	for (int i = 0; i < h; i++) {
-		for (int j = 0; j < w; j++) {
+	for (int i = 0; i < h2; i++) {
+		for (int j = 0; j < w2; j++) {
 			px = floor(j*x_ratio);
 			py = floor(i*y_ratio);
-			//temp[(i*w2)+j] = pixels[(int)((py*w1)+px)] ;
-			*returnImage[i].pixels = pixels[(int)((py*oldWidth) + px)];
+			outputImage->pixels[(i*w2) + j] = pixels[(int)((py*w1) + px)];
 		}
 	}
 
-	this->pixels = returnImage->pixels;
-	delete returnImage;
+	cout << "Done!" << endl;
+
+	pixels = outputImage->pixels;
+	delete outputImage;
+	
 }
 
 ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {
+	//ABOVE
+	//int oldWidth = w / 2;
+	//int oldHeight = h / 2;
 
+	//float x_ratio = oldWidth / w;
+	//float y_ratio = oldHeight / w;
+	//double px = 0, py = 0;
+
+	//for (int i = 0; i < h; i++) {
+	//	for (int j = 0; j < w; j++) {
+	//		px = floor(j*x_ratio);
+	//		py = floor(i*y_ratio);
+	//		//temp[(i*w2)+j] = pixels[(int)((py*w1)+px)] ;
+	//		*returnImage[(i*w) + j].pixels = pixels[(int)((py*oldWidth) + px)];
+	//	}
+	//}
+
+	//this->pixels = returnImage->pixels;
+	//delete returnImage;
 }

@@ -55,12 +55,12 @@ int main() {
 	//Image sigmaImage = calculateSigma(imageVec);
 	//sigmaImage.writePPM("sigmaImage.ppm");
 
-	ScaledImage timesTwoImage(750, 750);
-	timesTwoImage.readPPM("Images/Zoom/zIMG_1.ppm");
+	ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
+	timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm");
 
-	timesTwoImage.scaleTwoTimes();
+	timesTwoImage->scaleTwoTimes();
 
-	//timesTwoImage->writePPM("smallx2.ppm");
+	timesTwoImage->writePPM("zIMG_1x2.ppm");
 
 	//Image meanImage = calculateMean(imageVec);
 	//meanImage.writePPM("meanImage.ppm");
