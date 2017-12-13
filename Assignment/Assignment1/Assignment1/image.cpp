@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "calculations.h"
 
 using namespace std;
 
@@ -116,6 +117,7 @@ void Image::readPPM(const char *filename) {
 }
 
 void Image::writePPM(const char *filename) {
+	cout << "Writing image to " << filename << "..." << endl;
 	if (w == 0 || h == 0) { fprintf(stderr, "Can't save an empty image\n"); return; }
 	ofstream ofs;
 	try {
@@ -138,12 +140,77 @@ void Image::writePPM(const char *filename) {
 		fprintf(stderr, "%s\n", err);
 		ofs.close();
 	}
+
+	cout << "Finished writing " << filename << "!\n" << endl;
+}
+
+void Image::calculateMean(vector<Image> &imageVec) {
+	cout << "Calculating Mean..." << endl;
+	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h); //Create output image for mean values
+
+	vector<Image>::iterator imageIt; //Create iterator to go through images in vector
+
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
+			Image tempImg = *imageIt; //Create temp image from current image
+			pixels[i] += tempImg.pixels[i];
+
+		}
+		pixels[i] /= imageVec.size();
+	}
+
+	cout << "Mean Calculated!" << endl;
+}
+
+void Image::calculateSigma(vector<Image>& imageVec) {
+		cout << "Calculating Sigma..." << endl;
+		//Image medianImage = medianImagei; //Take input image
+		//Image standardImage = standardImagei; //Take input image
+		//If image is less than median - (1*sd) or greater than median + (1*sd)
+		//do this for each image, if the image pixel value is not in boundaries then remove it
+		//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
+		
+		vector<Image>::iterator ivi;
+		//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
+	
+		for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
+	
+			vector<float> redVals;
+			vector<float> greenVals;
+			vector<float> blueVals;
+	
+			for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
+				
+				redVals.push_back(ivi->pixels[i].r);
+				
+				greenVals.push_back(ivi->pixels[i].g);
+				
+				blueVals.push_back(ivi->pixels[i].b);
+			}
+	
+			//float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
+			//float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
+			//float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
+	
+			pixels[i].r = calculateSingleSigma(redVals);
+			pixels[i].g = calculateSingleSigma(greenVals);
+			pixels[i].b = calculateSingleSigma(blueVals);
+	
+			redVals.clear();
+			greenVals.clear();
+			blueVals.clear();
+	
+		}
+		cout << "Sigma Calculated!" << endl;
+		//return outputImage;
+	
 }
 
 Image::~Image() {
 	//if (pixels != NULL) delete[] pixels;
 	//delete[] pixels;
 }
+
 
 //Image::Image(const unsigned int _w, const unsigned int _h, const Rgb &c) {
 //	w = _w;

@@ -7,24 +7,6 @@
 
 using namespace std;
 
-Image calculateMean(vector<Image> imageVec) {
-	cout << "mean calculate" << endl;
-	Image outputImage(imageVec.at(0).w, imageVec.at(0).h); //Create output image for mean values
-
-	vector<Image>::iterator imageIt; //Create iterator to go through images in vector
-
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
-		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
-			Image tempImg = *imageIt; //Create temp image from current image
-			outputImage.pixels[i] += tempImg.pixels[i];
-
-		}
-		outputImage.pixels[i] /= imageVec.size();
-	}
-	cout << "mean calculated" << endl;
-	return outputImage;
-}
-
 float calculateMean(vector<float> &floatVec) {
 	float meanValue = 0;
 
@@ -99,51 +81,51 @@ float calculateMedian(vector<float> &floatVec) {
 
 }
 
-Image calculateStandard(vector<Image> imageVec) {
-	Image meanImage = calculateMean(imageVec); //Get mean image values using previously defined method
-	Image standardImage(imageVec.at(0).w, imageVec.at(0).h); //Create image to push standard values to
-
-	cout << "calculating standard" << endl;
-	vector<Image> standardVector = imageVec; // Create standard vector for calculations
-	vector<Image>::iterator svi;
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
-		for (svi = standardVector.begin(); svi != standardVector.end(); svi++) {
-			Image temp = *svi; // Create temp image to hold current vector image
-
-			/*if (i == 200) {
-				cout << "Original value: " << temp.pixels[i].r << endl;
-			}*/
-
-			temp.pixels[i] -= meanImage.pixels[i]; //Minus the mean from each pixel
-			temp.pixels[i] *= temp.pixels[i]; //Square the result
-
-			standardImage.pixels[i] += temp.pixels[i];
-
-		}
-
-		/*if (i == 200) {
-			cout << "Standard image total: " << standardImage.pixels[i].r << endl;
-		}*/
-		standardImage.pixels[i] /= imageVec.size();
-
-
-		/*if (i == 200) {
-			cout << "Standard value divided by " << imageVec.size() << ": " << standardImage.pixels[i].r << endl;
-		}*/
-
-		standardImage.pixels[i].r = sqrt(standardImage.pixels[i].r);
-		standardImage.pixels[i].g = sqrt(standardImage.pixels[i].g);
-		standardImage.pixels[i].b = sqrt(standardImage.pixels[i].b);
-
-		/*if (i == 200) {
-			cout << "Standard value square rooted: " << standardImage.pixels[i].r << endl;
-		}*/
-
-	}
-	cout << "standard calculated" << endl;
-	return standardImage;
-
-}
+//Image calculateStandard(vector<Image> imageVec) {
+//	Image meanImage = calculateMean(imageVec); //Get mean image values using previously defined method
+//	Image standardImage(imageVec.at(0).w, imageVec.at(0).h); //Create image to push standard values to
+//
+//	cout << "calculating standard" << endl;
+//	vector<Image> standardVector = imageVec; // Create standard vector for calculations
+//	vector<Image>::iterator svi;
+//	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+//		for (svi = standardVector.begin(); svi != standardVector.end(); svi++) {
+//			Image temp = *svi; // Create temp image to hold current vector image
+//
+//			/*if (i == 200) {
+//				cout << "Original value: " << temp.pixels[i].r << endl;
+//			}*/
+//
+//			temp.pixels[i] -= meanImage.pixels[i]; //Minus the mean from each pixel
+//			temp.pixels[i] *= temp.pixels[i]; //Square the result
+//
+//			standardImage.pixels[i] += temp.pixels[i];
+//
+//		}
+//
+//		/*if (i == 200) {
+//			cout << "Standard image total: " << standardImage.pixels[i].r << endl;
+//		}*/
+//		standardImage.pixels[i] /= imageVec.size();
+//
+//
+//		/*if (i == 200) {
+//			cout << "Standard value divided by " << imageVec.size() << ": " << standardImage.pixels[i].r << endl;
+//		}*/
+//
+//		standardImage.pixels[i].r = sqrt(standardImage.pixels[i].r);
+//		standardImage.pixels[i].g = sqrt(standardImage.pixels[i].g);
+//		standardImage.pixels[i].b = sqrt(standardImage.pixels[i].b);
+//
+//		/*if (i == 200) {
+//			cout << "Standard value square rooted: " << standardImage.pixels[i].r << endl;
+//		}*/
+//
+//	}
+//	cout << "standard calculated" << endl;
+//	return standardImage;
+//
+//}
 
 float calculateStandard(vector<float> &floatVec) {
 	float outputValue = 0;
@@ -163,51 +145,51 @@ float calculateStandard(vector<float> &floatVec) {
 	return outputValue;
 
 }
-
-Image calculateSigma(vector<Image> &imageVec) {
-	cout << "Sigma started" << endl;
-	//Image medianImage = medianImagei; //Take input image
-	//Image standardImage = standardImagei; //Take input image
-	//If image is less than median - (1*sd) or greater than median + (1*sd)
-	//do this for each image, if the image pixel value is not in boundaries then remove it
-	//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
-	
-	vector<Image>::iterator ivi;
-	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
-
-	for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
-
-		vector<float> redVals;
-		vector<float> greenVals;
-		vector<float> blueVals;
-
-		for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
-			Image temp = *ivi;
-			
-			redVals.push_back(temp.pixels[i].r);
-			
-			greenVals.push_back(temp.pixels[i].g);
-			
-			blueVals.push_back(temp.pixels[i].b);
-		}
-
-		//float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
-		//float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
-		//float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
-
-		outputImage.pixels[i].r = calculateSingleSigma(redVals);
-		outputImage.pixels[i].g = calculateSingleSigma(greenVals);
-		outputImage.pixels[i].b = calculateSingleSigma(blueVals);
-
-		redVals.clear();
-		greenVals.clear();
-		blueVals.clear();
-
-	}
-	cout << "sigma complete." << endl;
-	return outputImage;
-
-}
+//
+//Image calculateSigma(vector<Image> &imageVec) {
+//	cout << "Sigma started" << endl;
+//	//Image medianImage = medianImagei; //Take input image
+//	//Image standardImage = standardImagei; //Take input image
+//	//If image is less than median - (1*sd) or greater than median + (1*sd)
+//	//do this for each image, if the image pixel value is not in boundaries then remove it
+//	//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
+//	
+//	vector<Image>::iterator ivi;
+//	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
+//
+//	for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
+//
+//		vector<float> redVals;
+//		vector<float> greenVals;
+//		vector<float> blueVals;
+//
+//		for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
+//			Image temp = *ivi;
+//			
+//			redVals.push_back(temp.pixels[i].r);
+//			
+//			greenVals.push_back(temp.pixels[i].g);
+//			
+//			blueVals.push_back(temp.pixels[i].b);
+//		}
+//
+//		//float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
+//		//float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
+//		//float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
+//
+//		outputImage.pixels[i].r = calculateSingleSigma(redVals);
+//		outputImage.pixels[i].g = calculateSingleSigma(greenVals);
+//		outputImage.pixels[i].b = calculateSingleSigma(blueVals);
+//
+//		redVals.clear();
+//		greenVals.clear();
+//		blueVals.clear();
+//
+//	}
+//	cout << "sigma complete." << endl;
+//	return outputImage;
+//
+//}
 
 float calculateSingleSigma(vector<float> &floatVec, float loops) {
 	//vector<float> outputVec;

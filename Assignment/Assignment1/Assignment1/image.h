@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -36,17 +37,17 @@ public:
 	Rgb& operator [] (const unsigned int &i);
 
 	void readPPM(const char *filename);
-
-
 	//Write data out to a ppm file
 	//Constructs the header as above
 	void writePPM(const char *filename);
+	void calculateMean(vector<Image> &imageVec);
+	void calculateSigma(vector<Image> &imageVec);
 
 	~Image();
 
 	unsigned int w, h; // Image resolution 
 	Rgb *pixels; // 1D array of pixels 
-	static const Rgb kBlack, kWhite, kRed, kGreen, kBlue; // Preset colors 
+	static const Rgb kBlack, kWhite, kRed, kGreen, kBlue; // Preset colors
 };
 
 class ScaledImage : public Image {

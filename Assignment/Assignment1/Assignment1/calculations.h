@@ -4,10 +4,10 @@
 
 using namespace std;
 
-Image calculateMean(vector<Image>);
+//Image calculateMean(vector<Image>);
 Image calculateMedian(vector<Image>);
-Image calculateStandard(vector<Image>);
-Image calculateSigma(vector<Image>&);
+//Image calculateStandard(vector<Image>);
+//Image calculateSigma(vector<Image>&);
 float calculateMean(vector<float>&);
 float calculateMedian(vector<float>&);
 float calculateStandard(vector<float>&);

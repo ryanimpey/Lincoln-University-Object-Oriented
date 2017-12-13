@@ -52,8 +52,10 @@ int main() {
 	//Image medianImage = calculateMedian(imageVec);
 	//medianImage.writePPM("medianImage.ppm");
 
-	Image sigmaImage = calculateSigma(imageVec);
-	sigmaImage.writePPM("sigmaImage.ppm");
+	Image *sigmaImage = new Image(3264, 2448);
+	sigmaImage->calculateSigma(imageVec);
+	sigmaImage->writePPM("sigmaImage.ppm");
+	delete sigmaImage;
 
 	//ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
 	//timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm");
