@@ -202,6 +202,6 @@ void calculateEpoch(high_resolution_clock::time_point start, high_resolution_clo
 	auto epochEndToMS = end.time_since_epoch();
 
 	//Minus the difference between the two to get a value in ms.
-	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
+	auto millis = duration_cast<milliseconds>(epochEndToMS - epochStartToMS).count();
 	cout << "File created in " << millis << "ms.\n---------- " << endl;
 }

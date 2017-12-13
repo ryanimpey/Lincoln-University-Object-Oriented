@@ -363,7 +363,7 @@ void Image::imageInformation(string filename) {
 		auto timeNow = time(nullptr); //Get current time
 		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
 
-		ofs << "Image and log file created at: " << std::put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+		ofs << "Image and log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
 	}
 
 	ofs.close(); //Close file stream
@@ -409,7 +409,7 @@ void ScaledImage::imageInformation(string filename, int scale) {
 		auto timeNow = time(nullptr); //Get current time
 		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
 
-		ofs << "Image and log file created at: " << std::put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+		ofs << "Image and log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
 		ofs << "\r\nOriginal Image size: 750px * 750px \r\n";
 		ofs << "New image size: " << 750 * scale << "px * " << 750 * scale << "px";
 	}
