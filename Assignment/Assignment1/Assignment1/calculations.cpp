@@ -25,7 +25,7 @@ Image calculateMean(vector<Image> imageVec) {
 	return outputImage;
 }
 
-float calculateMean(vector<float> floatVec) {
+float calculateMean(vector<float> &floatVec) {
 	float meanValue = 0;
 
 	vector<float>::iterator fi;
@@ -84,7 +84,7 @@ Image calculateMedian(vector<Image> imageVec) {
 	return outputImage;
 }
 
-float calculateMedian(vector<float> floatVec) {
+float calculateMedian(vector<float> &floatVec) {
 
 	sort(floatVec.begin(), floatVec.end());
 	
@@ -145,7 +145,7 @@ Image calculateStandard(vector<Image> imageVec) {
 
 }
 
-float calculateStandard(vector<float> floatVec) {
+float calculateStandard(vector<float> &floatVec) {
 	float outputValue = 0;
 	float meanValue = calculateMean(floatVec);
 	vector<float>::iterator fi;
@@ -164,7 +164,7 @@ float calculateStandard(vector<float> floatVec) {
 
 }
 
-Image calculateSigma(vector<Image> imageVec) {
+Image calculateSigma(vector<Image> &imageVec) {
 	cout << "Sigma started" << endl;
 	//Image medianImage = medianImagei; //Take input image
 	//Image standardImage = standardImagei; //Take input image
@@ -172,7 +172,6 @@ Image calculateSigma(vector<Image> imageVec) {
 	//do this for each image, if the image pixel value is not in boundaries then remove it
 	//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
 	
-	vector<Image> inputVector = imageVec;
 	vector<Image>::iterator ivi;
 	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 
@@ -182,7 +181,7 @@ Image calculateSigma(vector<Image> imageVec) {
 		vector<float> greenVals;
 		vector<float> blueVals;
 
-		for (ivi = inputVector.begin(); ivi != inputVector.end(); ivi++) {
+		for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
 			Image temp = *ivi;
 			
 			redVals.push_back(temp.pixels[i].r);
@@ -210,54 +209,55 @@ Image calculateSigma(vector<Image> imageVec) {
 
 }
 
-float calculateSingleSigma(vector<float> floatVec, float loops) {
-	vector<float> outputVec;
+float calculateSingleSigma(vector<float> &floatVec, float loops) {
+	//vector<float> outputVec;
 	vector<float>::iterator fi;
 	float median = calculateMedian(floatVec);
 	float standard = calculateStandard(floatVec);
 
-	for (fi = floatVec.begin(); fi != floatVec.end(); fi++){
-		double temp = *fi;
-		double value = temp - (median + standard);
-		if ((temp < (median - standard)) || (temp > (median + standard))) {}
+	for (fi = floatVec.begin(); fi != floatVec.end();) {
+		double value = *fi - (median + standard);
+		if ((*fi < (median - standard)) || (*fi> (median + standard))) {
+			fi = floatVec.erase(fi);
+		}
 		else {
-			outputVec.push_back(*fi);
+			++fi;
 		}
 	}
-	if (outputVec.size() <= 2) {
-		float outputValue = 0;
-		sort(outputVec.begin(), outputVec.end());
 
-		if (outputVec.size() % 2 == 0) {
-			outputValue = (outputVec.at(outputVec.size() / 2) + outputVec.at((outputVec.size() / 2) - 1)) / 2;
+	if (floatVec.size() <= 2) {
+		float outputValue = 0;
+		sort(floatVec.begin(), floatVec.end());
+
+		if (floatVec.size() % 2 == 0) {
+			outputValue = (floatVec.at(floatVec.size() / 2) + floatVec.at((floatVec.size() / 2) - 1)) / 2;
 		}
 		else {
-			outputValue = outputVec.at(outputVec.size() / 2);
+			outputValue = floatVec.at(floatVec.size() / 2);
 		}
 
 		return outputValue;
 	}
+
 	if (loops < 5) {
 		loops++;
-		return calculateSingleSigma(outputVec, loops);
+		return calculateSingleSigma(floatVec, loops);
 	}
 	else {
+
 		float outputValue = 0;
-		sort(outputVec.begin(), outputVec.end());
-		
-		if(outputVec.size() % 2 == 0){
-			outputValue = (outputVec.at(outputVec.size() / 2) + outputVec.at((outputVec.size() / 2) - 1)) / 2;
+		sort(floatVec.begin(), floatVec.end());
+
+		if (floatVec.size() % 2 == 0) {
+			outputValue = (floatVec.at(floatVec.size() / 2) + floatVec.at((floatVec.size() / 2) - 1)) / 2;
 		}
 		else {
-			outputValue = outputVec.at(outputVec.size() / 2);
+			outputValue = floatVec.at(floatVec.size() / 2);
 		}
 
 		return outputValue;
-		/*vector<float> myFloats = { 1,2,3,4,5,6,7,8 };
-		cout << myFloats.size() << endl;
-		cout << myFloats.at(myFloats.size() / 2) << endl;
-		cout << myFloats.at(myFloats.size() / 2) - 1 << endl;
-		cout << (myFloats.at(myFloats.size() / 2) + myFloats.at((myFloats.size() / 2) + 1)) / 2 << endl;*/
+
 	}
+
 }
 

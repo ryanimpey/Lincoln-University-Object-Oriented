@@ -169,8 +169,8 @@ void ScaledImage::scaleTwoTimes() {
 	float x_ratio = (float)w1 / w2;
 	float y_ratio = (float)h1 / h2;
 
-	double px;
-	double py;
+	float px;
+	float py;
 
 	for (int i = 0; i < h2; i++) {
 		for (int j = 0; j < w2; j++) {

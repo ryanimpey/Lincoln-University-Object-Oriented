@@ -27,21 +27,21 @@ int main() {
 	vector<Image>::iterator ivi;
 	
 	// Read all images and push_back into imageVec. Creates nice [****] loading indicator
-	//cout << "// Reading Images //" << endl;
-	//cout << "[";
-	//for (int i = 1; i < 14; ++i) {
-	//	//Convert string for each file to a char* for readPPM
-	//	ostringstream filePath;
-	//	filePath << "Images/ImageStacker_set1/IMG_" << i << ".ppm";
-	//	string fileName = filePath.str();
-	//	//cout << fileName << endl;
-	//	const char *filePathC = fileName.c_str();
-	//	
-	//	Image img(3264, 2448);
-	//	img.readPPM(filePathC);
-	//	imageVec.push_back(img);
-	//}
-	//cout << "]" << endl;
+	cout << "// Reading Images //" << endl;
+	cout << "[";
+	for (int i = 1; i < 14; ++i) {
+		//Convert string for each file to a char* for readPPM
+		ostringstream filePath;
+		filePath << "Images/ImageStacker_set1/IMG_" << i << ".ppm";
+		string fileName = filePath.str();
+		//cout << fileName << endl;
+		const char *filePathC = fileName.c_str();
+		
+		Image img(3264, 2448);
+		img.readPPM(filePathC);
+		imageVec.push_back(img);
+	}
+	cout << "]" << endl;
 
 	//float bigEggs = calculateSingleSigma(fvec, calculateMedian(fvec), calculateStandard(fvec));
 	//cout << bigEggs << endl;
@@ -52,15 +52,15 @@ int main() {
 	//Image medianImage = calculateMedian(imageVec);
 	//medianImage.writePPM("medianImage.ppm");
 
-	//Image sigmaImage = calculateSigma(imageVec);
-	//sigmaImage.writePPM("sigmaImage.ppm");
+	Image sigmaImage = calculateSigma(imageVec);
+	sigmaImage.writePPM("sigmaImage.ppm");
 
-	ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
-	timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm");
+	//ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
+	//timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm");
 
-	timesTwoImage->scaleTwoTimes();
+	//timesTwoImage->scaleTwoTimes();
 
-	timesTwoImage->writePPM("zIMG_1x2.ppm");
+	//timesTwoImage->writePPM("zIMG_1x2.ppm");
 
 	//Image meanImage = calculateMean(imageVec);
 	//meanImage.writePPM("meanImage.ppm");
