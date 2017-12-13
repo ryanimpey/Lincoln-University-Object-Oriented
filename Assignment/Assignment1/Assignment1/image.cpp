@@ -173,11 +173,11 @@ void Image::calculateSigma(vector<Image>& imageVec) {
 		vector<Image>::iterator ivi;
 		//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 	
+		vector<float> redVals;
+		vector<float> greenVals;
+		vector<float> blueVals;
+
 		for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
-	
-			vector<float> redVals;
-			vector<float> greenVals;
-			vector<float> blueVals;
 	
 			for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
 				
@@ -195,12 +195,19 @@ void Image::calculateSigma(vector<Image>& imageVec) {
 			pixels[i].r = calculateSingleSigma(redVals);
 			pixels[i].g = calculateSingleSigma(greenVals);
 			pixels[i].b = calculateSingleSigma(blueVals);
-	
+			
+			//Clear vectors to remove values but preserve memory allocation
 			redVals.clear();
 			greenVals.clear();
 			blueVals.clear();
 	
 		}
+
+		//Release memory
+		redVals.shrink_to_fit();
+		greenVals.shrink_to_fit();
+		blueVals.shrink_to_fit();
+
 		cout << "Sigma Calculated!" << endl;
 		//return outputImage;
 	
