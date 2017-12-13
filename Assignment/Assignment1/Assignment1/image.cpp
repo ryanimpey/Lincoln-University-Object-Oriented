@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <array>
 #include "calculations.h"
 
 using namespace std;
@@ -141,7 +142,7 @@ void Image::writePPM(const char *filename) {
 		ofs.close();
 	}
 
-	cout << "Finished writing " << filename << "!\n" << endl;
+	cout << "Finished writing " << filename << "!";
 }
 
 void Image::calculateMean(vector<Image>& imageVec) {
@@ -163,7 +164,7 @@ void Image::calculateMean(vector<Image>& imageVec) {
 }
 
 void Image::calculateMedian(vector<Image>& imageVec) {
-
+	cout << "Calculating Median..." << endl;
 	//Create output image for mean values
 	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 
@@ -178,10 +179,6 @@ void Image::calculateMedian(vector<Image>& imageVec) {
 
 		//Create vector to store pixel values for each image
 		//vector<vector<float>> imageMedian;
-
-		//array<float, 13> redValues = {};
-		//array<float, 13> greenValues = {};
-		//array<float, 13> blueValues = {};
 
 		//int iterator = 0;
 		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
@@ -221,6 +218,7 @@ void Image::calculateMedian(vector<Image>& imageVec) {
 	redValues.shrink_to_fit();
 	greenValues.shrink_to_fit();
 	blueValues.shrink_to_fit();
+	cout << "Median Calculated!" << endl;
 }
 
 void Image::calculateSigma(vector<Image>& imageVec) {

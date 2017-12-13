@@ -1,10 +1,9 @@
-#include "calculations.h"
-
 #include <string>
 #include <array>
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include "calculations.h"
 
 using namespace std;
 
@@ -197,3 +196,12 @@ float calculateSingleSigma(vector<float> &floatVec, float loops) {
 
 }
 
+void calculateEpoch(high_resolution_clock::time_point start, high_resolution_clock::time_point end) {
+	//Transform times from epoch to milliseconds for human readability
+	auto epochStartToMS = start.time_since_epoch();
+	auto epochEndToMS = end.time_since_epoch();
+
+	//Minus the difference between the two to get a value in ms.
+	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
+	cout << " File created in " << millis << "ms.\n ---------- " << endl;
+}

@@ -43,14 +43,29 @@ int main() {
 	}
 	cout << "]" << endl;
 
-	//float bigEggs = calculateSingleSigma(fvec, calculateMedian(fvec), calculateStandard(fvec));
-	//cout << bigEggs << endl;
+	high_resolution_clock::time_point epochStart; //Create start timer for image algorithm
+	high_resolution_clock::time_point epochEnd; //Create end timer for image algorithm
+	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
+	//medianImage.writePPM("medianImage.ppm"); // Write image to file
+	/*auto epochStartToMS = epochStart.time_since_epoch();
+	auto epochEndToMS = epochEnd.time_since_epoch();
+	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
+	cout << "Median File created in: " << millis << "ms" << endl;*/
 
-	//Image meanImage = calculateMean(imageVec);
-	//meanImage.writePPM("meanImage.ppm");
 
-	//Image medianImage = calculateMedian(imageVec);
-	//medianImage.writePPM("medianImage.ppm");
+
+	Image *meanImage = new Image(3264, 2448);
+	epochStart = high_resolution_clock::now();
+	meanImage->calculateMean(imageVec);
+	meanImage->writePPM("meanImage.ppm");
+	epochEnd = high_resolution_clock::now(); //Create timer for median end
+	calculateEpoch(epochStart, epochEnd);
+	delete meanImage;
+
+	Image *medianImage = new Image(3264, 2448);
+	medianImage->calculateMedian(imageVec);
+	medianImage->writePPM("medianImage.ppm");
+	delete medianImage;
 
 	Image *sigmaImage = new Image(3264, 2448);
 	sigmaImage->calculateSigma(imageVec);
@@ -67,13 +82,7 @@ int main() {
 	//Image meanImage = calculateMean(imageVec);
 	//meanImage.writePPM("meanImage.ppm");
 
-	//cout << "Started median file creation..." << endl;
-	//high_resolution_clock::time_point epochStart = high_resolution_clock::now(); //Create timer for median start
-	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
-	//high_resolution_clock::time_point epochEnd = high_resolution_clock::now(); //Create timer for median end
-	//medianImage.writePPM("medianImage.ppm"); // Write image to file
-	//Image sigmaImage(imageVec.at(0).h, imageVec.at(0).w);
-	//cout << "done median and standard" << endl;
+	
 
 	//for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
 	//	vector<float> redValues;
@@ -96,7 +105,13 @@ int main() {
 
 	//}
 
-
+	//cout << "Started median file creation..." << endl;
+	//high_resolution_clock::time_point epochStart = high_resolution_clock::now(); //Create timer for median start
+	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
+	//high_resolution_clock::time_point epochEnd = high_resolution_clock::now(); //Create timer for median end
+	//medianImage.writePPM("medianImage.ppm"); // Write image to file
+	//Image sigmaImage(imageVec.at(0).h, imageVec.at(0).w);
+	//cout << "done median and standard" << endl;
 	/*auto epochStartToMS = epochStart.time_since_epoch();
 	auto epochEndToMS = epochEnd.time_since_epoch();
 	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
