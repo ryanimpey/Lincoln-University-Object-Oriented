@@ -10,7 +10,6 @@ using namespace std;
 
 float calculateMean(vector<float> &floatVec) {
 	float meanValue = 0;
-
 	vector<float>::iterator fi;
 	for (fi = floatVec.begin(); fi != floatVec.end(); fi++) {
 		meanValue += *fi;
@@ -18,71 +17,7 @@ float calculateMean(vector<float> &floatVec) {
 
 	meanValue /= floatVec.size();
 
-
 	return meanValue;
-}
-
-Image calculateMedian(vector<Image> imageVec) {
-
-	//Create output image for mean values
-	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
-
-	//Create iterator to go through images in vector
-	vector<Image>::iterator imageIt;
-
-	vector<float> redValues;
-	vector<float> greenValues;
-	vector<float> blueValues;
-
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
-
-		//Create vector to store pixel values for each image
-		//vector<vector<float>> imageMedian;
-		
-		//array<float, 13> redValues = {};
-		//array<float, 13> greenValues = {};
-		//array<float, 13> blueValues = {};
-
-		//int iterator = 0;
-		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
-			//Image tempImg = *imageIt;
-			
-			redValues.push_back(imageIt->pixels[i].r);
-			greenValues.push_back(imageIt->pixels[i].g);
-			blueValues.push_back(imageIt->pixels[i].b);
-
-			//redValues[iterator] = tempImg.pixels[i].r;
-			//greenValues[iterator] = tempImg.pixels[i].g;
-			//blueValues[iterator] = tempImg.pixels[i].b;
-
-			//iterator++;
-
-			//imageMedian.push_back({ tempImg.pixels[i].r , tempImg.pixels[i].g, tempImg.pixels[i].b });
-
-		}
-
-		//Sort the imageMedian vector, required to find median value.
-
-		sort(redValues.begin(), redValues.end());
-		sort(greenValues.begin(), greenValues.end());
-		sort(blueValues.begin(), blueValues.end());
-
-		outputImage.pixels[i].r = redValues[6];
-		outputImage.pixels[i].g = greenValues[6];
-		outputImage.pixels[i].b = blueValues[6];
-
-		//Clear vectors to remove values but preserve memory allocation
-		redValues.clear();
-		greenValues.clear();
-		blueValues.clear();
-	}
-
-	//Release memory
-	redValues.shrink_to_fit();
-	greenValues.shrink_to_fit();
-	blueValues.shrink_to_fit();
-
-	return outputImage;
 }
 
 float calculateMedian(vector<float> &floatVec) {

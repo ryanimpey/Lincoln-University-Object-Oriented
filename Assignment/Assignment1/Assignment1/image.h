@@ -41,6 +41,7 @@ public:
 	//Constructs the header as above
 	void writePPM(const char *filename);
 	void calculateMean(vector<Image> &imageVec);
+	void calculateMedian(vector<Image> &imageVec);
 	void calculateSigma(vector<Image> &imageVec);
 
 	~Image();

@@ -144,7 +144,7 @@ void Image::writePPM(const char *filename) {
 	cout << "Finished writing " << filename << "!\n" << endl;
 }
 
-void Image::calculateMean(vector<Image> &imageVec) {
+void Image::calculateMean(vector<Image>& imageVec) {
 	cout << "Calculating Mean..." << endl;
 	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h); //Create output image for mean values
 
@@ -152,14 +152,75 @@ void Image::calculateMean(vector<Image> &imageVec) {
 
 	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
 		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
-			Image tempImg = *imageIt; //Create temp image from current image
-			pixels[i] += tempImg.pixels[i];
+			//Image tempImg = *imageIt; //Create temp image from current image
+			pixels[i] += imageIt->pixels[i];
 
 		}
 		pixels[i] /= imageVec.size();
 	}
 
 	cout << "Mean Calculated!" << endl;
+}
+
+void Image::calculateMedian(vector<Image>& imageVec) {
+
+	//Create output image for mean values
+	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
+
+	//Create iterator to go through images in vector
+	vector<Image>::iterator imageIt;
+
+	vector<float> redValues;
+	vector<float> greenValues;
+	vector<float> blueValues;
+
+	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+
+		//Create vector to store pixel values for each image
+		//vector<vector<float>> imageMedian;
+
+		//array<float, 13> redValues = {};
+		//array<float, 13> greenValues = {};
+		//array<float, 13> blueValues = {};
+
+		//int iterator = 0;
+		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
+			//Image tempImg = *imageIt;
+
+			redValues.push_back(imageIt->pixels[i].r);
+			greenValues.push_back(imageIt->pixels[i].g);
+			blueValues.push_back(imageIt->pixels[i].b);
+
+			//redValues[iterator] = tempImg.pixels[i].r;
+			//greenValues[iterator] = tempImg.pixels[i].g;
+			//blueValues[iterator] = tempImg.pixels[i].b;
+
+			//iterator++;
+
+			//imageMedian.push_back({ tempImg.pixels[i].r , tempImg.pixels[i].g, tempImg.pixels[i].b });
+
+		}
+
+		//Sort the imageMedian vector, required to find median value.
+
+		sort(redValues.begin(), redValues.end());
+		sort(greenValues.begin(), greenValues.end());
+		sort(blueValues.begin(), blueValues.end());
+
+		pixels[i].r = redValues[6];
+		pixels[i].g = greenValues[6];
+		pixels[i].b = blueValues[6];
+
+		//Clear vectors to remove values but preserve memory allocation
+		redValues.clear();
+		greenValues.clear();
+		blueValues.clear();
+	}
+
+	//Release memory
+	redValues.shrink_to_fit();
+	greenValues.shrink_to_fit();
+	blueValues.shrink_to_fit();
 }
 
 void Image::calculateSigma(vector<Image>& imageVec) {
