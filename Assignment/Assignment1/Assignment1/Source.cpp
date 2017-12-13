@@ -22,9 +22,8 @@ int main() {
 	cout << "    Image Stacker / Image Scaler    " << endl;
 	cout << " ************************************" << endl;
 
-	//Create imageVector to store images in.
-	vector<Image> imageVec;
-	vector<Image>::iterator ivi;
+	
+	vector<Image> imageVec; // Create imageVector to store images in.
 	
 	// Read all images and push_back into imageVec. Creates nice [****] loading indicator
 	cout << "// Reading Images //" << endl;
@@ -43,51 +42,50 @@ int main() {
 	}
 	cout << "]" << endl;
 
-	high_resolution_clock::time_point epochStart; //Create start timer for image algorithm
-	high_resolution_clock::time_point epochEnd; //Create end timer for image algorithm
-	//	Image medianImage = calculateMedian(imageVec); // Median image equals calculateMedian result
-	//medianImage.writePPM("medianImage.ppm"); // Write image to file
-	/*auto epochStartToMS = epochStart.time_since_epoch();
-	auto epochEndToMS = epochEnd.time_since_epoch();
-	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(epochEndToMS - epochStartToMS).count();
-	cout << "Median File created in: " << millis << "ms" << endl;*/
+	high_resolution_clock::time_point epochStart; // Create start timer for image algorithm
+	high_resolution_clock::time_point epochEnd; // Create end timer for image algorithm
 
+	Image *meanImage = new Image(3264, 2448); // Create new image for Mean Image
+	epochStart = high_resolution_clock::now(); // Start Timer
+	meanImage->calculateMean(imageVec); // Calculate mean value of image
+	meanImage->writePPM("meanImage.ppm"); // Write image to file
+	epochEnd = high_resolution_clock::now(); // Stop Timer
+	calculateEpoch(epochStart, epochEnd); // Calculate start and stop difference
+	delete meanImage; // Delete allocated memory for Mean Image pointer
 
+	Image *medianImage = new Image(3264, 2448); // Create new image for Median Image
+	epochStart = high_resolution_clock::now(); // Start Timer
+	medianImage->calculateMedian(imageVec); // Calculate median value of image
+	medianImage->writePPM("medianImage.ppm"); // Write image to file
+	epochEnd = high_resolution_clock::now(); // Stop Timer
+	calculateEpoch(epochStart, epochEnd); // Calculate start and stop difference
+	delete medianImage; //Delete allocated memory for Median Image pointer
 
-	Image *meanImage = new Image(3264, 2448);
-	epochStart = high_resolution_clock::now();
-	meanImage->calculateMean(imageVec);
-	meanImage->writePPM("meanImage.ppm");
-	epochEnd = high_resolution_clock::now(); //Create timer for median end
-	calculateEpoch(epochStart, epochEnd);
-	delete meanImage;
+	Image *sigmaImage = new Image(3264, 2448); // Create new image for Sigma Image
+	epochStart = high_resolution_clock::now(); // Start Timer
+	sigmaImage->calculateSigma(imageVec); // Calculate median value of image
+	sigmaImage->writePPM("sigmaImage.ppm"); // Write image to file
+	epochEnd = high_resolution_clock::now(); // Stop Timer
+	calculateEpoch(epochStart, epochEnd); // Calculate start and stop difference
+	delete sigmaImage; //Delete allocated memory for Sigma Image pointer
 
-	Image *medianImage = new Image(3264, 2448);
-	epochStart = high_resolution_clock::now();
-	medianImage->calculateMedian(imageVec);
-	medianImage->writePPM("medianImage.ppm");
-	epochEnd = high_resolution_clock::now(); //Create timer for median end
-	calculateEpoch(epochStart, epochEnd);
-	delete medianImage;
+	ScaledImage *timesTwoImage = new ScaledImage(1500, 1500); // Create new scaled image for x2 zoom
+	epochStart = high_resolution_clock::now(); // Start Timer
+	timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm"); // Read in the image file
+	timesTwoImage->scaleNearestNeighbour(2); // Scale image
+	timesTwoImage->writePPM("NearestNeighbourX2.ppm"); // Write image to file
+	epochEnd = high_resolution_clock::now(); // Stop Timer
+	calculateEpoch(epochStart, epochEnd); // Calculate start and stop difference
+	delete timesTwoImage;  //Delete allocated memory for x2 Image pointer
 
-	Image *sigmaImage = new Image(3264, 2448);
-	epochStart = high_resolution_clock::now();
-	sigmaImage->calculateSigma(imageVec);
-	sigmaImage->writePPM("sigmaImage.ppm");
-	epochEnd = high_resolution_clock::now(); //Create timer for median end
-	calculateEpoch(epochStart, epochEnd);
-	delete sigmaImage;
-
-	//ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
-	//timesTwoImage->readPPM("Images/Zoom/zIMG_1.ppm");
-
-	//timesTwoImage->scaleTwoTimes();
-
-	//timesTwoImage->writePPM("zIMG_1x2.ppm");
-
-	//Image meanImage = calculateMean(imageVec);
-	//meanImage.writePPM("meanImage.ppm");
-
+	ScaledImage *timesFourImage = new ScaledImage(3000, 3000); // Create new scaled image for x2 zoom
+	epochStart = high_resolution_clock::now(); // Start Timer
+	timesFourImage->readPPM("Images/Zoom/zIMG_1.ppm"); // Read in the image file
+	timesFourImage->scaleNearestNeighbour(4); // Scale image
+	timesFourImage->writePPM("NearestNeighbourX4.ppm"); // Write image to file
+	epochEnd = high_resolution_clock::now(); // Stop Timer
+	calculateEpoch(epochStart, epochEnd); // Calculate start and stop difference
+	delete timesFourImage;  //Delete allocated memory for x2 Image pointer
 	
 
 	//for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {

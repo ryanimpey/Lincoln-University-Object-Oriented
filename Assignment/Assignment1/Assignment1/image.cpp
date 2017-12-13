@@ -288,38 +288,6 @@ Image::~Image() {
 //		pixels[i] = c;
 //}
 
-void ScaledImage::scaleTwoTimes() {	
-
-	cout << "Scalling image..." << endl;
-
-	int w1 = w/2;
-	int w2 = w;
-	int h1 = h/2;
-	int h2 = h;
-
-	Image *outputImage = new Image(w2,h2);
-	
-	float x_ratio = (float)w1 / w2;
-	float y_ratio = (float)h1 / h2;
-
-	float px;
-	float py;
-
-	for (int i = 0; i < h2; i++) {
-		for (int j = 0; j < w2; j++) {
-			px = floor(j*x_ratio);
-			py = floor(i*y_ratio);
-			outputImage->pixels[(i*w2) + j] = pixels[(int)((py*w1) + px)];
-		}
-	}
-
-	cout << "Done!" << endl;
-
-	pixels = outputImage->pixels;
-	delete outputImage;
-	
-}
-
 ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {
 	//ABOVE
 	//int oldWidth = w / 2;
@@ -340,4 +308,36 @@ ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const R
 
 	//this->pixels = returnImage->pixels;
 	//delete returnImage;
+}
+
+void ScaledImage::scaleNearestNeighbour(int amount) {
+
+	cout << "Scaling image by " << amount << "..." << endl;
+
+	int w1 = w / amount;
+	int w2 = w;
+	int h1 = h / amount;
+	int h2 = h;
+
+	Image *outputImage = new Image(w2, h2);
+
+	float x_ratio = (float)w1 / w2;
+	float y_ratio = (float)h1 / h2;
+
+	float px;
+	float py;
+
+	for (int i = 0; i < h2; i++) {
+		for (int j = 0; j < w2; j++) {
+			px = floor(j*x_ratio);
+			py = floor(i*y_ratio);
+			outputImage->pixels[(i*w2) + j] = pixels[(int)((py*w1) + px)];
+		}
+	}
+
+	cout << "Done!" << endl;
+
+	pixels = outputImage->pixels;
+	delete outputImage;
+
 }

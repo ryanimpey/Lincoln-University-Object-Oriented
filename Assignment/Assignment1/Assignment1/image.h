@@ -54,5 +54,5 @@ public:
 class ScaledImage : public Image {
 public:
 	ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
-	void scaleTwoTimes();
+	void scaleNearestNeighbour(int);
 };
