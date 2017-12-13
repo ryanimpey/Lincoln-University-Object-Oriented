@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 4996)
 //*********************************************
 //Image class to hold and allow manipulation of images once read into the code
 //from https://www.scratchapixel.com/
@@ -43,6 +44,7 @@ public:
 	void calculateMean(vector<Image> &imageVec);
 	void calculateMedian(vector<Image> &imageVec);
 	void calculateSigma(vector<Image> &imageVec);
+	virtual void imageInformation(string);
 
 	~Image();
 
@@ -55,4 +57,5 @@ class ScaledImage : public Image {
 public:
 	ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
 	void scaleNearestNeighbour(int);
+	void imageInformation(string, int);
 };

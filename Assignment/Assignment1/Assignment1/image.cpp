@@ -6,9 +6,13 @@
 #include <fstream>
 #include <sstream>
 #include <array>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 #include "calculations.h"
 
 using namespace std;
+using namespace std::chrono;
 
 Image::Rgb::Rgb() {
 	r = 0;
@@ -142,7 +146,7 @@ void Image::writePPM(const char *filename) {
 		ofs.close();
 	}
 
-	cout << "Finished writing " << filename << "!";
+	cout << "Finished writing " << filename << "!" << endl;
 }
 
 void Image::calculateMean(vector<Image>& imageVec) {
@@ -288,27 +292,7 @@ Image::~Image() {
 //		pixels[i] = c;
 //}
 
-ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {
-	//ABOVE
-	//int oldWidth = w / 2;
-	//int oldHeight = h / 2;
-
-	//float x_ratio = oldWidth / w;
-	//float y_ratio = oldHeight / w;
-	//double px = 0, py = 0;
-
-	//for (int i = 0; i < h; i++) {
-	//	for (int j = 0; j < w; j++) {
-	//		px = floor(j*x_ratio);
-	//		py = floor(i*y_ratio);
-	//		//temp[(i*w2)+j] = pixels[(int)((py*w1)+px)] ;
-	//		*returnImage[(i*w) + j].pixels = pixels[(int)((py*oldWidth) + px)];
-	//	}
-	//}
-
-	//this->pixels = returnImage->pixels;
-	//delete returnImage;
-}
+ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {}
 
 void ScaledImage::scaleNearestNeighbour(int amount) {
 
@@ -339,5 +323,99 @@ void ScaledImage::scaleNearestNeighbour(int amount) {
 
 	pixels = outputImage->pixels;
 	delete outputImage;
+
+}
+
+void Image::imageInformation(string filename) {
+
+	ifstream ifs; // Input file stream
+	string imageFileName = filename + ".ppm";
+	ifs.open(imageFileName, ios::binary); // Open the file passed in
+
+	int currentLine = 0; // Keep track of what line the program is currently on
+	string line; // The contents of that line
+	array<string, 3> outputInformation = {}; // Vector to hold file information
+
+	if (ifs.is_open()) {
+		while (getline(ifs, line) && currentLine < 3) {
+			outputInformation[currentLine] = line;
+			currentLine++;
+		}
+	}
+
+	ifs.close();
+
+	ofstream ofs; // Output file stream
+	string logFileName = filename + "Log.txt";
+	ofs.open(logFileName, ios::binary);
+
+	if (ofs.fail()) throw("Can't open output file"); // Check file can be opened
+
+	if (ofs.is_open()) {
+
+		ofs << "Image Filename: " << imageFileName << ".\r\n"; // Write image file name to log
+		ofs << "Log Filename: " << logFileName << "\r\n"; // Write log file name to log
+		ofs << "Binary Magic Number of PPM file: " << outputInformation[0] << ".\r\n"; //Output image magic number (P6)
+		ofs << "Image Height and Width: " << outputInformation[1] << ".\r\n";
+		ofs << "Maximum colour value: " << outputInformation[2] << ".\r\n";
+		ofs << "This .PPM file is in binary and is using 24 bits per pixel. (8 for R, 8 for G, and 8 for B).\r\n";
+
+		auto timeNow = time(nullptr); //Get current time
+		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
+
+		ofs << "Image and log file created at: " << std::put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+	}
+
+	ofs.close(); //Close file stream
+
+	cout << "Log file for " << filename << " created: " << logFileName << endl;
+
+}
+
+void ScaledImage::imageInformation(string filename, int scale) {
+
+	ifstream ifs; // Input file stream
+	string imageFileName = filename + ".ppm";
+	ifs.open(imageFileName, ios::binary); // Open the file passed in
+
+	int currentLine = 0; // Keep track of what line the program is currently on
+	string line; // The contents of that line
+	array<string, 3> outputInformation = {}; // Vector to hold file information
+
+	if (ifs.is_open()) {
+		while (getline(ifs, line) && currentLine < 3) {
+			outputInformation[currentLine] = line;
+			currentLine++;
+		}
+	}
+
+	ifs.close();
+
+	ofstream ofs; // Output file stream
+	string logFileName = filename + "Log.txt";
+	ofs.open(logFileName, ios::binary);
+
+	if (ofs.fail()) throw("Can't open output file"); // Check file can be opened
+
+	if (ofs.is_open()) {
+
+		ofs << "Image Filename: " << imageFileName << ".\r\n"; // Write image file name to log
+		ofs << "Log Filename: " << logFileName << "\r\n"; // Write log file name to log
+		ofs << "Binary Magic Number of PPM file: " << outputInformation[0] << ".\r\n"; //Output image magic number (P6)
+		ofs << "Image Height and Width: " << outputInformation[1] << ".\r\n";
+		ofs << "Maximum colour value: " << outputInformation[2] << ".\r\n";
+		ofs << "This .PPM file is in binary and is using 24 bits per pixel. (8 for R, 8 for G, and 8 for B).\r\n";
+
+		auto timeNow = time(nullptr); //Get current time
+		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
+
+		ofs << "Image and log file created at: " << std::put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+		ofs << "\r\nOriginal Image size: 750px * 750px \r\n";
+		ofs << "New image size: " << 750 * scale << "px * " << 750 * scale << "px";
+	}
+
+	ofs.close(); //Close file stream
+
+	cout << "Log file for " << filename << " created: " << logFileName << endl;
 
 }
