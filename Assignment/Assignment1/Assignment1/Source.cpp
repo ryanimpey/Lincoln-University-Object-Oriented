@@ -63,13 +63,19 @@ int main() {
 	delete meanImage;
 
 	Image *medianImage = new Image(3264, 2448);
+	epochStart = high_resolution_clock::now();
 	medianImage->calculateMedian(imageVec);
 	medianImage->writePPM("medianImage.ppm");
+	epochEnd = high_resolution_clock::now(); //Create timer for median end
+	calculateEpoch(epochStart, epochEnd);
 	delete medianImage;
 
 	Image *sigmaImage = new Image(3264, 2448);
+	epochStart = high_resolution_clock::now();
 	sigmaImage->calculateSigma(imageVec);
 	sigmaImage->writePPM("sigmaImage.ppm");
+	epochEnd = high_resolution_clock::now(); //Create timer for median end
+	calculateEpoch(epochStart, epochEnd);
 	delete sigmaImage;
 
 	//ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);
