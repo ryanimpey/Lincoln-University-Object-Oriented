@@ -83,8 +83,6 @@ Image::Rgb& Image::operator[] (const unsigned int &i) {
 
 
 void Image::readPPM(const char *filename) {
-	//Remove this cout to prevent multiple outputs
-	cout << "*";
 	ifstream ifs;
 	ifs.open(filename, ios::binary);
 	//Image src;
@@ -98,7 +96,7 @@ void Image::readPPM(const char *filename) {
 		if (strcmp(header.c_str(), "P6") != 0) throw("Can't read the input file - is it in binary format (Has P6 in the header)?");
 		ifs >> w >> h >> b;
 		//src.w = w;
-		//src.h = h;
+		//src.h = h;\
 		//cout << w << " " << h << endl;
 		//src.pixels = new Image::Rgb[w * h]; // this is throw an exception if bad_alloc 
 		ifs.ignore(256, '\n'); // skip empty lines in necessary until we get to the binary data 
@@ -363,7 +361,7 @@ void Image::imageInformation(string filename) {
 		auto timeNow = time(nullptr); //Get current time
 		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
 
-		ofs << "Image and log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+		ofs << "Log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
 	}
 
 	ofs.close(); //Close file stream
@@ -372,7 +370,7 @@ void Image::imageInformation(string filename) {
 
 }
 
-void ScaledImage::imageInformation(string filename, int scale) {
+void ScaledImage::imageInformation(string filename) {
 
 	ifstream ifs; // Input file stream
 	string imageFileName = filename + ".ppm";
@@ -409,9 +407,9 @@ void ScaledImage::imageInformation(string filename, int scale) {
 		auto timeNow = time(nullptr); //Get current time
 		auto timeLocal = *localtime(&timeNow); // Convert time into a usable local time format for parsing later
 
-		ofs << "Image and log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
+		ofs << "Log file created at: " << put_time(&timeLocal, "%F, %T"); // Output time image and log file created at
 		ofs << "\r\nOriginal Image size: 750px * 750px \r\n";
-		ofs << "New image size: " << 750 * scale << "px * " << 750 * scale << "px";
+		ofs << "New image size: " << 750 * (w/ 750) << "px * " << 750 * (w / 750) << "px";
 	}
 
 	ofs.close(); //Close file stream

@@ -13,3 +13,4 @@ float calculateMedian(vector<float>&);
 float calculateStandard(vector<float>&);
 float calculateSingleSigma(vector<float>&, float loops = 1);
 void calculateEpoch(high_resolution_clock::time_point, high_resolution_clock::time_point);
+void getInfo(Image &image, string);

@@ -35,7 +35,7 @@ int main() {
 		string fileName = filePath.str();
 		//cout << fileName << endl;
 		const char *filePathC = fileName.c_str();
-		
+		cout << "*";
 		Image img(3264, 2448);
 		img.readPPM(filePathC);
 		imageVec.push_back(img);
@@ -58,7 +58,7 @@ int main() {
 	// Write image to file
 	meanImage->writePPM("meanImage.ppm");
 	// Write image information to log
-	meanImage->imageInformation("meanImage");
+	getInfo(*meanImage, "meanImage");
 	// Stop Timer
 	epochEnd = high_resolution_clock::now();
 	// Calculate start and stop difference
@@ -75,8 +75,8 @@ int main() {
 	medianImage->calculateMedian(imageVec);
 	// Write image to file
 	medianImage->writePPM("medianImage.ppm");
-	// Write image information to file
-	medianImage->imageInformation("medianImage");
+	// Write image information to log
+	getInfo(*medianImage, "medianImage");
 	// Stop Timer
 	epochEnd = high_resolution_clock::now();
 	// Calculate start and stop difference
@@ -94,7 +94,7 @@ int main() {
 	// Write image to file
 	sigmaImage->writePPM("sigmaImage.ppm");
 	// Write image information to log
-	sigmaImage->imageInformation("sigmaImage");
+	getInfo(*sigmaImage, "sigmaImage");
 	// Stop Timer
 	epochEnd = high_resolution_clock::now();
 	// Calculate start and stop difference
@@ -114,7 +114,7 @@ int main() {
 	// Write image to file
 	timesTwoImage->writePPM("NearestNeighbourX2.ppm");
 	// Write image information to log
-	timesTwoImage->imageInformation("NearestNeighbourX2", 2);
+	getInfo(*timesTwoImage, "NearestNeighbourX2");
 	// Stop Timer
 	epochEnd = high_resolution_clock::now();
 	// Calculate start and stop difference
@@ -134,7 +134,7 @@ int main() {
 	// Write image to file
 	timesFourImage->writePPM("NearestNeighbourX4.ppm");
 	// Write image information to log
-	timesTwoImage->imageInformation("NearestNeighbourX4", 4);
+	getInfo(*timesFourImage, "NearestNeighbourX4");
 	// Stop Timer
 	epochEnd = high_resolution_clock::now();
 	// Calculate start and stop difference
