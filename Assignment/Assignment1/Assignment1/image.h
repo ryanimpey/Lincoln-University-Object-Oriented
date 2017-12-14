@@ -28,6 +28,8 @@ public:
 		Rgb& operator += (const Rgb &rgb);
 		Rgb& operator /= (const int);
 		Rgb& operator -= (const Rgb &rgb);
+		Rgb& operator * (const float);
+		Rgb& operator + (const Rgb& rgb);
 		friend float& operator += (float &f, const Rgb rgb);
 		float r, g, b;
 	};
@@ -57,5 +59,6 @@ class ScaledImage : public Image {
 public:
 	ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
 	void scaleNearestNeighbour(int);
+	void scaleBilinear(int);
 	void imageInformation(string);
 };

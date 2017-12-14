@@ -52,6 +52,14 @@ Image::Rgb& Image::Rgb::operator -= (const Rgb &rgb) {
 	r -= rgb.r, g -= rgb.g, b -= rgb.b; return *this;
 }
 
+Image::Rgb& Image::Rgb::operator* (const float val) {
+	r * val, g * val, b * val; return *this;
+}
+
+Image::Rgb& Image::Rgb::operator+(const Rgb& rgb) {
+	r + rgb.r, g + rgb.g, b + rgb.b; return *this;
+}
+
 float& operator+= (float &f, const Image::Rgb rgb) {
 	f += (rgb.r + rgb.g + rgb.b) / 3.f; return f;
 }
@@ -415,5 +423,55 @@ void ScaledImage::imageInformation(string filename) {
 	ofs.close(); //Close file stream
 
 	cout << "Log file for " << filename << " created: " << logFileName << endl;
+
+}
+
+void ScaledImage::scaleBilinear(int amount) {
+
+	cout << "Scaling image using bilinear by" << amount << "..." << endl;
+
+	int w1 = w / amount;
+	int w2 = w;
+	int h1 = h / amount;
+	int h2 = h;
+
+	Image *outputImage = new Image(w2, h2);
+
+
+	int A, B, C, D, x, y, index;
+
+	Rgb gray;
+	float x_ratio = ((float)(w1 - 1)) / w2;
+	float y_ratio = ((float)(h1 - 1)) / h2;
+
+	float x_diff, y_diff, blue, red, green;
+	int offset = 0;
+	for (int i = 0; i<h2; i++) {
+		for (int j = 0; j<w2; j++) {
+			x = (int)(x_ratio * j);
+			y = (int)(y_ratio * i);
+			x_diff = (x_ratio * j) - x;
+			y_diff = (y_ratio * i) - y;
+			index = y*w1 + x;
+
+			red = (pixels[index].r)*(1 - x_diff)*(1 - y_diff) + (pixels[index + 1].r)*(x_diff)*(1 - y_diff) +
+				(pixels[index + w1].r)*(y_diff)*(1 - x_diff) + (pixels[index + w1 + 1].r)*(x_diff*y_diff);
+
+			green = (pixels[index].g)*(1 - x_diff)*(1 - y_diff) + (pixels[index + 1].g)*(x_diff)*(1 - y_diff) +
+				(pixels[index + w1].g)*(y_diff)*(1 - x_diff) + (pixels[index + w1 + 1].g)*(x_diff*y_diff);
+
+			blue = (pixels[index].b)*(1 - x_diff)*(1 - y_diff) + (pixels[index + 1].b)*(x_diff)*(1 - y_diff) +
+				(pixels[index + w1].b)*(y_diff)*(1 - x_diff) + (pixels[index + w1 + 1].b)*(x_diff*y_diff);
+
+			outputImage->pixels[offset].r = red;
+			outputImage->pixels[offset].g = green;
+			outputImage->pixels[offset].b = blue;
+			offset++;
+		}
+	}
+
+	pixels = outputImage->pixels;
+	delete outputImage;
+	cout << "Bilinear scaling complete!" << endl;
 
 }

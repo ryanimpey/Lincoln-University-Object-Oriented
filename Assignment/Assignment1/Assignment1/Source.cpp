@@ -141,6 +141,25 @@ int main() {
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for x2 Image pointer
 	delete timesFourImage;
+
+	// Create new scaled image for x2 zoom
+	ScaledImage *bilinearImage = new ScaledImage(1500, 1500);
+	// Start Timer
+	epochStart = high_resolution_clock::now();
+	// Read in the image file
+	bilinearImage->readPPM("Images/Zoom/zIMG_1.ppm");
+	// Scale image
+	bilinearImage->scaleBilinear(2);
+	// Write image to file
+	bilinearImage->writePPM("BilinearImage.ppm");
+	// Write image information to log
+	getInfo(*bilinearImage, "BilinearImage");
+	// Stop Timer
+	epochEnd = high_resolution_clock::now();
+	// Calculate start and stop difference
+	calculateEpoch(epochStart, epochEnd);
+	//Delete allocated memory for x2 Image pointer
+	delete bilinearImage;
 	
 
 	//Prevents auto close.
