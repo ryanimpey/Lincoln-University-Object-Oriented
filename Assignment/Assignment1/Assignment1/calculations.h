@@ -6,11 +6,9 @@
 using namespace std;
 using namespace std::chrono;
 
-//Image calculateStandard(vector<Image>);
-//Image calculateSigma(vector<Image>&);
-float calculateMean(vector<float>&);
-float calculateMedian(vector<float>&);
-float calculateStandard(vector<float>&);
-float calculateSingleSigma(vector<float>&, float loops = 1);
-void calculateEpoch(high_resolution_clock::time_point, high_resolution_clock::time_point);
-void getInfo(Image &image, string);
+float calculateMean(vector<float>&); // Calculate mean for float vector
+float calculateMedian(vector<float>&); // Calculate median for float vector
+float calculateStandard(vector<float>&); // Calculate standard deviation for float vector
+float calculateSingleSigma(vector<float>&, float loops = 1); // Calculate sigma clipping for a float vector
+void calculateEpoch(high_resolution_clock::time_point&, high_resolution_clock::time_point&); // Calculate algorithm runtime in milliseconds
+void getInfo(Image &image, string); // Retrieve information about an image

@@ -102,6 +102,10 @@ int main() {
 	//Delete allocated memory for Sigma Image pointer
 	delete sigmaImage;
 
+	// Clear Image vector as it is no longer using memory
+	imageVec.clear();
+	// Retrieve memory allocated to Image vector
+	imageVec.shrink_to_fit();
 
 	// Create new scaled image for x2 zoom
 	ScaledImage *timesTwoImage = new ScaledImage(1500, 1500);

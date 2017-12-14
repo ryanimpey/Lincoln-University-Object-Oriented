@@ -7,205 +7,169 @@
 
 using namespace std;
 
+// Calculate mean for a vector of floats
 float calculateMean(vector<float> &floatVec) {
+	// Create variable to hold mean result 
 	float meanValue = 0;
+	// Float iterator to iterator through floatVec
 	vector<float>::iterator fi;
 	for (fi = floatVec.begin(); fi != floatVec.end(); fi++) {
+		// For every value in the vector, add it to the current value of meanValue
 		meanValue += *fi;
 	}
 
+	// Divide the sum by the amount to get the average
 	meanValue /= floatVec.size();
 
+	// Return mean result variable previously created
 	return meanValue;
 }
 
+// Calculate median for a vector of floats
 float calculateMedian(vector<float> &floatVec) {
-
+	// Sort all floats in the float vector
 	sort(floatVec.begin(), floatVec.end());
 	
-	float medianValue = 0; //Create value for median
+	//Create variable to hold median result
+	float medianValue = 0;
+
 	if (floatVec.size() % 2 == 0 ) {
+		// If the vector size is even, then add the two middle values together and divide by 2 to get the median value
 		medianValue = (floatVec.at(floatVec.size() / 2) + floatVec.at((floatVec.size() / 2) - 1)) / 2;
 	} else{
+		// Otherwise set the median value equal to the single middle value
 		medianValue = floatVec.at(floatVec.size() / 2);
 	}
 
+	// Return median result variable previously created
 	return medianValue;
 
 }
 
-//Image calculateStandard(vector<Image> imageVec) {
-//	Image meanImage = calculateMean(imageVec); //Get mean image values using previously defined method
-//	Image standardImage(imageVec.at(0).w, imageVec.at(0).h); //Create image to push standard values to
-//
-//	cout << "calculating standard" << endl;
-//	vector<Image> standardVector = imageVec; // Create standard vector for calculations
-//	vector<Image>::iterator svi;
-//	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
-//		for (svi = standardVector.begin(); svi != standardVector.end(); svi++) {
-//			Image temp = *svi; // Create temp image to hold current vector image
-//
-//			/*if (i == 200) {
-//				cout << "Original value: " << temp.pixels[i].r << endl;
-//			}*/
-//
-//			temp.pixels[i] -= meanImage.pixels[i]; //Minus the mean from each pixel
-//			temp.pixels[i] *= temp.pixels[i]; //Square the result
-//
-//			standardImage.pixels[i] += temp.pixels[i];
-//
-//		}
-//
-//		/*if (i == 200) {
-//			cout << "Standard image total: " << standardImage.pixels[i].r << endl;
-//		}*/
-//		standardImage.pixels[i] /= imageVec.size();
-//
-//
-//		/*if (i == 200) {
-//			cout << "Standard value divided by " << imageVec.size() << ": " << standardImage.pixels[i].r << endl;
-//		}*/
-//
-//		standardImage.pixels[i].r = sqrt(standardImage.pixels[i].r);
-//		standardImage.pixels[i].g = sqrt(standardImage.pixels[i].g);
-//		standardImage.pixels[i].b = sqrt(standardImage.pixels[i].b);
-//
-//		/*if (i == 200) {
-//			cout << "Standard value square rooted: " << standardImage.pixels[i].r << endl;
-//		}*/
-//
-//	}
-//	cout << "standard calculated" << endl;
-//	return standardImage;
-//
-//}
-
+// Calculate standard deviation for a vector of floats
 float calculateStandard(vector<float> &floatVec) {
+	// Create variable to hold result
 	float outputValue = 0;
+	
+	// Calculate the mean value of the floatVec input using the previously created function
 	float meanValue = calculateMean(floatVec);
+	
+	// Float iterator to iterate through floatVec
 	vector<float>::iterator fi;
 
 	for (fi = floatVec.begin(); fi != floatVec.end(); fi++) {
+		// Assign temp to the value located at fi, and subtract the previously calculated mean value
 		float temp = *fi - meanValue;
+		// Times the temp value by itself to square it
 		temp *= temp;
 
+		// Add the temp value to the existing output value
 		outputValue +=temp;
 	}
 
+	// Divide the output value by the size of the floatVec to get the variance
 	outputValue /= floatVec.size();
+	// Get the square root value of outputValue to get the standard deviation value
 	outputValue = sqrt(outputValue);
 
+	// Return standard deviation value
 	return outputValue;
 
 }
-//
-//Image calculateSigma(vector<Image> &imageVec) {
-//	cout << "Sigma started" << endl;
-//	//Image medianImage = medianImagei; //Take input image
-//	//Image standardImage = standardImagei; //Take input image
-//	//If image is less than median - (1*sd) or greater than median + (1*sd)
-//	//do this for each image, if the image pixel value is not in boundaries then remove it
-//	//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
-//	
-//	vector<Image>::iterator ivi;
-//	Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
-//
-//	for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
-//
-//		vector<float> redVals;
-//		vector<float> greenVals;
-//		vector<float> blueVals;
-//
-//		for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
-//			Image temp = *ivi;
-//			
-//			redVals.push_back(temp.pixels[i].r);
-//			
-//			greenVals.push_back(temp.pixels[i].g);
-//			
-//			blueVals.push_back(temp.pixels[i].b);
-//		}
-//
-//		//float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
-//		//float greenMed = calculateMedian(greenVals), greenSta = calculateStandard(greenVals);
-//		//float blueMed = calculateMedian(blueVals), blueSta = calculateStandard(blueVals);
-//
-//		outputImage.pixels[i].r = calculateSingleSigma(redVals);
-//		outputImage.pixels[i].g = calculateSingleSigma(greenVals);
-//		outputImage.pixels[i].b = calculateSingleSigma(blueVals);
-//
-//		redVals.clear();
-//		greenVals.clear();
-//		blueVals.clear();
-//
-//	}
-//	cout << "sigma complete." << endl;
-//	return outputImage;
-//
-//}
 
+// Calculate sigma clipping for a vector of floats
 float calculateSingleSigma(vector<float> &floatVec, float loops) {
-	//vector<float> outputVec;
+	// Create iterator to loop through all values of floatVec
 	vector<float>::iterator fi;
+
+	// Calculate the median value of floatVec using the previously created function
 	float median = calculateMedian(floatVec);
+	// Calculate the standard deviation value of floatVec using the previously created function
 	float standard = calculateStandard(floatVec);
 
+	// For every float value in the floatVec
 	for (fi = floatVec.begin(); fi != floatVec.end();) {
+
+		// Set the value equal to the the value stored at *fi, minus the sum of the median and standard
 		double value = *fi - (median + standard);
+		
+		//If the value at *fi is less than the median - standard, or greater than the median + standard
 		if ((*fi < (median - standard)) || (*fi> (median + standard))) {
+			// Remove the value from the vector
 			fi = floatVec.erase(fi);
 		}
 		else {
+			// Otherwise increment the vector as usual
 			++fi;
 		}
 	}
 
+	// If the vector size is less than or equal to 2
 	if (floatVec.size() <= 2) {
+		// Create variable to hold output value
 		float outputValue = 0;
+
+		// Sort every value remaining in the floatVec
 		sort(floatVec.begin(), floatVec.end());
 
 		if (floatVec.size() % 2 == 0) {
+			// If the vector size is even, then add the two middle values together and divide by 2 to get the median value
 			outputValue = (floatVec.at(floatVec.size() / 2) + floatVec.at((floatVec.size() / 2) - 1)) / 2;
 		}
 		else {
+			// Otherwise set the median value equal to the single middle value
 			outputValue = floatVec.at(floatVec.size() / 2);
 		}
 
+		// Return the output value
 		return outputValue;
 	}
 
+	// If the loops variable is less than 5
 	if (loops < 5) {
+		// Increment the loops variable
 		loops++;
+		// Recursively call itself passing through the current floatVec and the previously incremented loops value
 		return calculateSingleSigma(floatVec, loops);
 	}
+	// If loops is not less than 5 
 	else {
-
+		// Create variable to hold output value
 		float outputValue = 0;
+
+		// Sort every value remaining in the floatVec
 		sort(floatVec.begin(), floatVec.end());
 
 		if (floatVec.size() % 2 == 0) {
+			// If the vector size is even, then add the two middle values together and divide by 2 to get the median value
 			outputValue = (floatVec.at(floatVec.size() / 2) + floatVec.at((floatVec.size() / 2) - 1)) / 2;
 		}
 		else {
+			// Otherwise set the median value equal to the single middle value
 			outputValue = floatVec.at(floatVec.size() / 2);
 		}
 
+		// Return the output value
 		return outputValue;
-
 	}
 
 }
 
-void calculateEpoch(high_resolution_clock::time_point start, high_resolution_clock::time_point end) {
-	//Transform times from epoch to milliseconds for human readability
+// Calculate the run time of a section of code, taking in a start and end time in epoch time
+void calculateEpoch(high_resolution_clock::time_point& start, high_resolution_clock::time_point& end) {
+	// Calculate the time since epoch for each value
 	auto epochStartToMS = start.time_since_epoch();
 	auto epochEndToMS = end.time_since_epoch();
 
-	//Minus the difference between the two to get a value in ms.
+	// Minus the difference between the two to get a value in ms.
 	auto millis = duration_cast<milliseconds>(epochEndToMS - epochStartToMS).count();
+	// Output the result in text form to the console
 	cout << "File created in " << millis << "ms.\n---------- " << endl;
 }
 
+// Call the imageInformation method for each Image
 void getInfo(Image &image, string filename) {
+
+	// Call the imageInformation method
 	image.imageInformation(filename);
 }
