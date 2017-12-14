@@ -28,6 +28,8 @@ void f2(int j) {
 	cout << "f3 success" << endl;
 }
 
+//https://msdn.microsoft.com/en-us/library/9yb4317s.aspx
+
 void main() {	try {
 		f3(0); //compare this to situation where argument is 0
 	}
