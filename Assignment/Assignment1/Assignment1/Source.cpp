@@ -166,6 +166,13 @@ int main() {
 	delete bilinearImage;
 	
 
+	// Region of Interest
+	Image *regionDefaultImage = new Image(3264, 2448);
+	regionDefaultImage->readPPM("Images/ImageStacker_set1/IMG_7.ppm");
+	Image *extractedImage = new Image(500, 500);
+	*extractedImage = regionDefaultImage->regionOfInterest(1400, 500);
+	extractedImage->writePPM("Extracted.ppm");
+
 	//Prevents auto close.
 	int endbreak;
 	cout << "End of Program. Press any key to continue" << endl;

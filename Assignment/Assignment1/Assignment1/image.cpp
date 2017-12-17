@@ -287,16 +287,9 @@ Image::~Image() {
 	//delete[] pixels;
 }
 
+ScaledImage::~ScaledImage() {
 
-//Image::Image(const unsigned int _w, const unsigned int _h, const Rgb &c) {
-//	w = _w;
-//	h = _h;
-//	pixels = NULL;
-//
-//	pixels = new Rgb[w * h];
-//	for (int i = 0; i < w * h; ++i)
-//		pixels[i] = c;
-//}
+}
 
 ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {}
 
@@ -376,6 +369,38 @@ void Image::imageInformation(string filename) {
 
 	cout << "Log file for " << filename << " created: " << logFileName << endl;
 
+}
+
+Image Image::regionOfInterest(int pixel, int dimension) {
+
+	Image outputImage(dimension, dimension);
+	
+	int iterations = 0;
+	int pixelVal = 0;
+	for (int i = pixel; i < h*w;)   {
+
+		outputImage.pixels[pixelVal] = pixels[i];
+		//cout << "PixelVal: " << pixelVal << ", I: " << i << endl;
+
+		pixelVal++;
+
+		if (i < ((iterations * 3264) + (pixel+dimension))) {
+			i++;
+		}
+		else {
+			iterations++;
+			i = (iterations * 3264) + pixel + 1;
+			cout << i << endl;
+		}
+
+
+		if (pixelVal > dimension*dimension) {
+			break;
+		}
+
+	}
+
+	return outputImage;
 }
 
 void ScaledImage::imageInformation(string filename) {

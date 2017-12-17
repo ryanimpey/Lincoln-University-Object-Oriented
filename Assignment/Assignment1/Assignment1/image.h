@@ -47,6 +47,7 @@ public:
 	void calculateMedian(vector<Image> &imageVec);
 	void calculateSigma(vector<Image> &imageVec);
 	virtual void imageInformation(string);
+	Image regionOfInterest(int, int);
 
 	~Image();
 
@@ -61,4 +62,7 @@ public:
 	void scaleNearestNeighbour(int);
 	void scaleBilinear(int);
 	void imageInformation(string);
+
+	~ScaledImage();
+
 };
