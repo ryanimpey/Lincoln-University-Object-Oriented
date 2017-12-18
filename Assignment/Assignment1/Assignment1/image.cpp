@@ -291,7 +291,6 @@ Image::~Image() {
 }
 
 ScaledImage::~ScaledImage() {
-
 }
 
 ScaledImage::ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c) : Image(_w, _h, c) {}
@@ -387,12 +386,12 @@ Image Image::regionOfInterest(int pixel, int dimension) {
 
 		pixelVal++;
 
-		if (i < ((iterations * 3264) + (pixel+dimension))) {
+		if (i < ((iterations * w) + (pixel+dimension))) {
 			i++;
 		}
 		else {
 			iterations++;
-			i = (iterations * 3264) + pixel + 1;
+			i = (iterations * w) + pixel + 1;
 			cout << i << endl;
 		}
 

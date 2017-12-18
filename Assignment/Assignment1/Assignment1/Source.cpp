@@ -64,6 +64,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	// Delete allocated memory for Mean Image pointer
+	delete[] meanImage->pixels;
 	delete meanImage;
 
 
@@ -82,6 +83,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for Median Image pointer
+	delete[] medianImage->pixels;
 	delete medianImage;
 
 
@@ -100,6 +102,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for Sigma Image pointer
+	delete[] sigmaImage->pixels;
 	delete sigmaImage;
 
 	// Clear Image vector as it is no longer using memory
@@ -124,6 +127,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for x2 Image pointer
+	delete[] timesTwoImage->pixels;
 	delete timesTwoImage;
 
 
@@ -144,6 +148,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for x2 Image pointer
+	delete[] timesFourImage->pixels;
 	delete timesFourImage;
 
 	// Create new scaled image for x2 zoom
@@ -163,6 +168,7 @@ int main() {
 	// Calculate start and stop difference
 	calculateEpoch(epochStart, epochEnd);
 	//Delete allocated memory for x2 Image pointer
+	delete[] bilinearImage->pixels;
 	delete bilinearImage;
 	
 
@@ -172,6 +178,27 @@ int main() {
 	Image *extractedImage = new Image(500, 500);
 	*extractedImage = regionDefaultImage->regionOfInterest(1400, 500);
 	extractedImage->writePPM("Extracted.ppm");
+
+	delete[] regionDefaultImage->pixels;
+	delete regionDefaultImage;
+	delete[] extractedImage->pixels;
+	delete extractedImage;
+
+	ScaledImage *scaleRegion = new ScaledImage(1000,1000);
+	scaleRegion->readPPM("Extracted.ppm");
+	scaleRegion->scaleNearestNeighbour(2);
+	scaleRegion->writePPM("ExtractedX2.ppm");
+	
+	delete[] scaleRegion->pixels;
+	delete scaleRegion;
+
+	ScaledImage *scaleRegionFour = new ScaledImage(2000, 2000);
+	scaleRegionFour->readPPM("Extracted.ppm");
+	scaleRegionFour->scaleNearestNeighbour(4);
+	scaleRegionFour->writePPM("ExtractedX4.ppm");
+
+	delete[] scaleRegionFour->pixels;
+	delete scaleRegionFour;
 
 	//Prevents auto close.
 	int endbreak;
