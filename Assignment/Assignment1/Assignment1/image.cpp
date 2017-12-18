@@ -287,7 +287,7 @@ void Image::calculateSigma(vector<Image>& imageVec) {
 
 Image::~Image() {
 	//if (pixels != NULL) delete[] pixels;
-	//delete[] pixels;
+	delete[] pixels;
 }
 
 ScaledImage::~ScaledImage() {
