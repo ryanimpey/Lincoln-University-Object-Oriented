@@ -14,13 +14,16 @@
 using namespace std;
 using namespace std::chrono;
 
+// Empty Image Constructor
 Image::Rgb::Rgb() {
 	r = 0;
 	g = 0;
 	b = 0;
 }
 
+// Image constructor with a single arguement
 Image::Rgb::Rgb(float c) {
+	// Set the rgb values equal to the parameter c
 	r = c;
 	b = c;
 	g = c;
