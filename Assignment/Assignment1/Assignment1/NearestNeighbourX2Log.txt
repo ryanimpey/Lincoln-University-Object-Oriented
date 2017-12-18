@@ -4,6 +4,6 @@ Binary Magic Number of PPM file: P6.
 Image Height and Width: 1500 1500.
 Maximum colour value: 255.
 This .PPM file is in binary and is using 24 bits per pixel. (8 for R, 8 for G, and 8 for B).
-Log file created at: 2017-12-18, 16:40:17
+Log file created at: 2017-12-18, 17:51:46
 Original Image size: 750px * 750px 
 New image size: 1500px * 1500px

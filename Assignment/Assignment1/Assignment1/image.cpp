@@ -158,16 +158,16 @@ void Image::writePPM(const char *filename) {
 	cout << "Finished writing " << filename << "!" << endl;
 }
 
-void Image::calculateMean(vector<Image>& imageVec) {
+void Image::calculateMean(vector<Image*>& imageVec) {
 	cout << "Calculating Mean..." << endl;
 	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h); //Create output image for mean values
 
-	vector<Image>::iterator imageIt; //Create iterator to go through images in vector
+	vector<Image*>::iterator imageIt; //Create iterator to go through images in vector
 
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+	for (int i = 0; i < (imageVec.at(0)->h * imageVec.at(0)->w); ++i) {
 		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
-			//Image tempImg = *imageIt; //Create temp image from current image
-			pixels[i] += imageIt->pixels[i];
+			//Image *tempImg = *imageIt; //Create temp image from current image
+			pixels[i] += (*imageIt)->pixels[i];
 
 		}
 		pixels[i] /= imageVec.size();
@@ -176,19 +176,19 @@ void Image::calculateMean(vector<Image>& imageVec) {
 	cout << "Mean Calculated!" << endl;
 }
 
-void Image::calculateMedian(vector<Image>& imageVec) {
+void Image::calculateMedian(vector<Image*>& imageVec) {
 	cout << "Calculating Median..." << endl;
 	//Create output image for mean values
 	//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 
 	//Create iterator to go through images in vector
-	vector<Image>::iterator imageIt;
+	vector<Image*>::iterator imageIt;
 
 	vector<float> redValues;
 	vector<float> greenValues;
 	vector<float> blueValues;
 
-	for (int i = 0; i < (imageVec.at(0).h * imageVec.at(0).w); ++i) {
+	for (int i = 0; i < (imageVec.at(0)->h * imageVec.at(0)->w); ++i) {
 
 		//Create vector to store pixel values for each image
 		//vector<vector<float>> imageMedian;
@@ -197,9 +197,9 @@ void Image::calculateMedian(vector<Image>& imageVec) {
 		for (imageIt = imageVec.begin(); imageIt != imageVec.end(); ++imageIt) {
 			//Image tempImg = *imageIt;
 
-			redValues.push_back(imageIt->pixels[i].r);
-			greenValues.push_back(imageIt->pixels[i].g);
-			blueValues.push_back(imageIt->pixels[i].b);
+			redValues.push_back((*imageIt)->pixels[i].r);
+			greenValues.push_back((*imageIt)->pixels[i].g);
+			blueValues.push_back((*imageIt)->pixels[i].b);
 
 			//redValues[iterator] = tempImg.pixels[i].r;
 			//greenValues[iterator] = tempImg.pixels[i].g;
@@ -234,7 +234,7 @@ void Image::calculateMedian(vector<Image>& imageVec) {
 	cout << "Median Calculated!" << endl;
 }
 
-void Image::calculateSigma(vector<Image>& imageVec) {
+void Image::calculateSigma(vector<Image*>& imageVec) {
 		cout << "Calculating Sigma..." << endl;
 		//Image medianImage = medianImagei; //Take input image
 		//Image standardImage = standardImagei; //Take input image
@@ -242,22 +242,22 @@ void Image::calculateSigma(vector<Image>& imageVec) {
 		//do this for each image, if the image pixel value is not in boundaries then remove it
 		//for 13 images, in their own rgb array, if the value in that array is less than the one made by median[i] +/- standardImage[i] then remove it, loop with function overloading
 		
-		vector<Image>::iterator ivi;
+		vector<Image*>::iterator ivi;
 		//Image outputImage(imageVec.at(0).w, imageVec.at(0).h);
 	
 		vector<float> redVals;
 		vector<float> greenVals;
 		vector<float> blueVals;
 
-		for (int i = 0; i < (imageVec.at(0).w * imageVec.at(0).h); ++i) {
+		for (int i = 0; i < (imageVec.at(0)->w * imageVec.at(0)->h); ++i) {
 	
 			for (ivi = imageVec.begin(); ivi != imageVec.end(); ivi++) {
 				
-				redVals.push_back(ivi->pixels[i].r);
+				redVals.push_back((*ivi)->pixels[i].r);
 				
-				greenVals.push_back(ivi->pixels[i].g);
+				greenVals.push_back((*ivi)->pixels[i].g);
 				
-				blueVals.push_back(ivi->pixels[i].b);
+				blueVals.push_back((*ivi)->pixels[i].b);
 			}
 	
 			//float redMed = calculateMedian(redVals), redSta = calculateStandard(redVals);
@@ -286,8 +286,8 @@ void Image::calculateSigma(vector<Image>& imageVec) {
 }
 
 Image::~Image() {
-	//if (pixels != NULL) delete[] pixels;
-	delete[] pixels;
+	if (pixels != NULL) delete[] pixels;
+	//delete[] pixels;
 }
 
 ScaledImage::~ScaledImage() {
@@ -323,7 +323,6 @@ void ScaledImage::scaleNearestNeighbour(int amount) {
 	cout << "Done!" << endl;
 
 	pixels = outputImage->pixels;
-	delete outputImage;
 
 }
 
@@ -373,15 +372,15 @@ void Image::imageInformation(string filename) {
 
 }
 
-Image Image::regionOfInterest(int pixel, int dimension) {
+Image* Image::regionOfInterest(int pixel, int dimension) {
 
-	Image outputImage(dimension, dimension);
+	Image *outputImage = new Image(dimension, dimension);
 	
 	int iterations = 0;
 	int pixelVal = 0;
 	for (int i = pixel; i < h*w;)   {
 
-		outputImage.pixels[pixelVal] = pixels[i];
+		outputImage->pixels[pixelVal] = pixels[i];
 		//cout << "PixelVal: " << pixelVal << ", I: " << i << endl;
 
 		pixelVal++;
@@ -392,7 +391,6 @@ Image Image::regionOfInterest(int pixel, int dimension) {
 		else {
 			iterations++;
 			i = (iterations * w) + pixel + 1;
-			cout << i << endl;
 		}
 
 
@@ -498,7 +496,6 @@ void ScaledImage::scaleBilinear(int amount) {
 	}
 
 	pixels = outputImage->pixels;
-	delete outputImage;
 	cout << "Bilinear scaling complete!" << endl;
 
 }

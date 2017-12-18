@@ -43,11 +43,11 @@ public:
 	//Write data out to a ppm file
 	//Constructs the header as above
 	void writePPM(const char *filename);
-	void calculateMean(vector<Image> &imageVec);
-	void calculateMedian(vector<Image> &imageVec);
-	void calculateSigma(vector<Image> &imageVec);
+	void calculateMean(vector<Image*> &imageVec);
+	void calculateMedian(vector<Image*> &imageVec);
+	void calculateSigma(vector<Image*> &imageVec);
 	virtual void imageInformation(string);
-	Image regionOfInterest(int, int);
+	Image* regionOfInterest(int, int);
 
 	~Image();
 
