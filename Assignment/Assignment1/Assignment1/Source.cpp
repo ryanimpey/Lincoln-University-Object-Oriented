@@ -22,8 +22,8 @@ int main() {
 	cout << "    Image Stacker / Image Scaler    " << endl;
 	cout << " ************************************" << endl;
 
-	
-	vector<Image*> imageVec; // Create imageVector to store images in.
+	// Create imageVector to store images in.
+	vector<Image*> imageVec;
 	
 	// Read all images and push_back into imageVec. Creates nice [****] loading indicator
 	cout << "// Reading Images //" << endl;
@@ -172,28 +172,57 @@ int main() {
 	delete bilinearImage;
 	
 
-	// Region of Interest
+	// Create new image for Region of Interest
 	Image *regionDefaultImage = new Image(4592, 3056);
+	// Read in the image file
 	regionDefaultImage->readPPM("Images/ImageStacker_set2/IMG_4.ppm");
+	// Create new image for image extraction
 	Image *extractedImage = new Image(500, 500);
+	// Set the extracted image equal to the image created from the regionOfInterest method
 	extractedImage = regionDefaultImage->regionOfInterest(4154600, 500);
+	// Write image to file
 	extractedImage->writePPM("RegionOfInterest.ppm");
 
+	//Delete allocated memory for Images
 	delete regionDefaultImage;
 	delete extractedImage;
 
+	// Create new image for Region of Interest Scaling
 	ScaledImage *scaleRegion = new ScaledImage(1000,1000);
+	// Start Timer
+	epochStart = high_resolution_clock::now();
+	// Read in the image file
 	scaleRegion->readPPM("RegionOfInterest.ppm");
+	// Scale the image
 	scaleRegion->scaleNearestNeighbour(2);
+	// Write the image
 	scaleRegion->writePPM("RegionOfInterestX2.ppm");
-	
+	// Write image information to log
+	getInfo(*bilinearImage, "RegionOfInterestX2");
+	// Stop Timer
+	epochEnd = high_resolution_clock::now();
+	// Calculate start and stop difference
+	calculateEpoch(epochStart, epochEnd);
+	// Delete allocated memory
 	delete scaleRegion;
 
+	// Create new image for Region of Interest Scaling
 	ScaledImage *scaleRegionFour = new ScaledImage(2000, 2000);
+	// Start Timer
+	epochStart = high_resolution_clock::now();
+	// Read in the image file
 	scaleRegionFour->readPPM("RegionOfInterest.ppm");
+	// Scale the image
 	scaleRegionFour->scaleNearestNeighbour(4);
+	// Write the image
 	scaleRegionFour->writePPM("RegionOfInterestX4.ppm");
-
+	// Write image information to log
+	getInfo(*bilinearImage, "RegionOfInterestX4");
+	// Stop Timer
+	epochEnd = high_resolution_clock::now();
+	// Calculate start and stop difference
+	calculateEpoch(epochStart, epochEnd);
+	// Delete allocated memory
 	delete scaleRegionFour;
 
 	//Prevents auto close.

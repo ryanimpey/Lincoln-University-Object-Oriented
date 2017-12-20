@@ -26,7 +26,7 @@ float calculateMean(vector<float> &floatVec) {
 }
 
 // Calculate median for a vector of floats
-float calculateMedian(vector<float> &floatVec) {
+float calculateMedians(vector<float> &floatVec) {
 	// Sort all floats in the float vector
 	sort(floatVec.begin(), floatVec.end());
 	
@@ -83,7 +83,7 @@ float calculateSingleSigma(vector<float> &floatVec, float loops) {
 	vector<float>::iterator fi;
 
 	// Calculate the median value of floatVec using the previously created function
-	float median = calculateMedian(floatVec);
+	float median = calculateMedians(floatVec);
 	// Calculate the standard deviation value of floatVec using the previously created function
 	float standard = calculateStandard(floatVec);
 

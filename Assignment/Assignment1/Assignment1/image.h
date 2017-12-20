@@ -39,30 +39,31 @@ public:
 	const Rgb& operator [] (const unsigned int &i) const;
 	Rgb& operator [] (const unsigned int &i);
 
-	void readPPM(const char *filename);
-	//Write data out to a ppm file
-	//Constructs the header as above
-	void writePPM(const char *filename);
-	void calculateMean(vector<Image*> &imageVec);
-	void calculateMedian(vector<Image*> &imageVec);
-	void calculateSigma(vector<Image*> &imageVec);
-	virtual void imageInformation(string);
-	Image* regionOfInterest(int, int);
+	void readPPM(const char *filename); // Read in an image file
+	void writePPM(const char *filename); // Write out data to an image file
+	void calculateMean(vector<Image*> &imageVec); // Calculate the mean value of a set of images
+	void calculateMedian(vector<Image*> &imageVec); // Calculate the median value of a set of images
+	void calculateSigma(vector<Image*> &imageVec); // Calculate the sigma value of a set of images
+	virtual void imageInformation(string); // Write information about the image to a log file, virtual for polymorphism
+	Image* regionOfInterest(int, int); // Collect a region of interest from the file
 
-	~Image();
+	~Image(); // Image destructor
 
-	unsigned int w, h; // Image resolution 
-	Rgb *pixels; // 1D array of pixels 
 	static const Rgb kBlack, kWhite, kRed, kGreen, kBlue; // Preset colors
+	Rgb *pixels; // 1D array of pixels
+	int getWidth(); // Return width of image
+	int getHeight(); // Return height of image
+private:
+	unsigned int w, h; // Image resolution 
 };
 
 class ScaledImage : public Image {
 public:
 	ScaledImage(const unsigned int &_w, const unsigned int &_h, const Rgb &c = kBlack);
-	void scaleNearestNeighbour(int);
-	void scaleBilinear(int);
-	void imageInformation(string);
+	void scaleNearestNeighbour(int); // Scale image using Nearest-Neighbour
+	void scaleBilinear(int); // Scale image using Bilinear
+	void imageInformation(string); // Write information about the image to a log file using virtual function previously defined
 
-	~ScaledImage();
+	~ScaledImage(); // Image destructor
 
 };
